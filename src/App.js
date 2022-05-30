@@ -9,6 +9,7 @@ import Signup from './Pages/Signup'
 import Dashboard from './Components/Dashboard'
 import PrivateRoute from './Components/PrivateRoute'
 import Host from './Pages/Host'
+import MyEvents from './Pages/MyEvents'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path='/signup' element={<Signup></Signup>} ></Route>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard></Dashboard></PrivateRoute>}>
             <Route path='host' element={<PrivateRoute><Host></Host></PrivateRoute>} ></Route>
+            <Route path='my-events' element={<PrivateRoute><MyEvents></MyEvents></PrivateRoute>} ></Route>
             
           </Route>
          
