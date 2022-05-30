@@ -3,18 +3,18 @@ import styled from "styled-components"
 import "../Styles/style.css"
 import { NavLink } from 'react-router-dom'
 
-const Login = () => {
+const Signup = () => {
   return (
     <Wrapper>
         <LoginContainer>
-            <h1>Login</h1>
+            <h1>Signup</h1>
             <LoginForm>
                 <TextInput placeholder='Username'></TextInput>
                 <TextInput type="password" placeholder='Password' ></TextInput>
                 <SubmitButton>Login</SubmitButton>
                 <SignupLink>
-                    <p>No Account?</p>
-                    <SignupButton to={"/signup"}>Create One</SignupButton>
+                    <p>Already have an account?</p>
+                    <SignupButton to={"/signup"}>Login</SignupButton>
                 </SignupLink>
             </LoginForm>
             
@@ -97,4 +97,4 @@ const SignupButton = styled(NavLink) `
 `
 
 
-export default Login
+export default Signup
