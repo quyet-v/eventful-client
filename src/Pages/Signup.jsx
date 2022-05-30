@@ -11,10 +11,10 @@ const Signup = () => {
             <LoginForm>
                 <TextInput placeholder='Username'></TextInput>
                 <TextInput type="password" placeholder='Password' ></TextInput>
-                <SubmitButton>Login</SubmitButton>
+                <SubmitButton>Signup</SubmitButton>
                 <SignupLink>
                     <p>Already have an account?</p>
-                    <SignupButton to={"/signup"}>Login</SignupButton>
+                    <SignupButton to={"/login"}>Login</SignupButton>
                 </SignupLink>
             </LoginForm>
             
