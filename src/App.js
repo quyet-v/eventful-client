@@ -10,6 +10,7 @@ import Dashboard from './Components/Dashboard'
 import PrivateRoute from './Components/PrivateRoute'
 import Host from './Pages/Host'
 import MyEvents from './Pages/MyEvents'
+import AllEvents from './Pages/AllEvents'
 
 const App = () => {
   return (
@@ -21,7 +22,8 @@ const App = () => {
           <Route path='/signup' element={<Signup></Signup>} ></Route>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard></Dashboard></PrivateRoute>}>
             <Route path='host' element={<PrivateRoute><Host></Host></PrivateRoute>} ></Route>
-            <Route path='my-events' element={<PrivateRoute><MyEvents></MyEvents></PrivateRoute>} ></Route>
+            <Route path='myevents' element={<PrivateRoute><MyEvents></MyEvents></PrivateRoute>} ></Route>
+            <Route path='allevents' element={<PrivateRoute><AllEvents></AllEvents></PrivateRoute>} ></Route>
             
           </Route>
          
