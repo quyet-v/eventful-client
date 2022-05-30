@@ -11,6 +11,7 @@ import PrivateRoute from './Components/PrivateRoute'
 import Host from './Pages/Host'
 import MyEvents from './Pages/MyEvents'
 import AllEvents from './Pages/AllEvents'
+import Friends from './Pages/Friends'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             <Route path='host' element={<PrivateRoute><Host></Host></PrivateRoute>} ></Route>
             <Route path='myevents' element={<PrivateRoute><MyEvents></MyEvents></PrivateRoute>} ></Route>
             <Route path='allevents' element={<PrivateRoute><AllEvents></AllEvents></PrivateRoute>} ></Route>
+            <Route path='friends' element={<PrivateRoute><Friends></Friends></PrivateRoute>} ></Route>
             
           </Route>
          
