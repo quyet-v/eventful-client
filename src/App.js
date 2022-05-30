@@ -7,6 +7,8 @@ import Home from './Pages/Home'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Dashboard from './Components/Dashboard'
+import PrivateRoute from './Components/PrivateRoute'
+import Host from './Pages/Host'
 
 const App = () => {
   return (
@@ -16,7 +18,11 @@ const App = () => {
           <Route path='/' element={<Home></Home>} ></Route>
           <Route path='/login' element={<Login></Login>} ></Route>
           <Route path='/signup' element={<Signup></Signup>} ></Route>
-          <Route path='/dashboard' element={<Dashboard></Dashboard>} ></Route>
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard></Dashboard></PrivateRoute>}>
+            <Route path='host' element={<PrivateRoute><Host></Host></PrivateRoute>} ></Route>
+            
+          </Route>
+         
 
 
         </Routes>

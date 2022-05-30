@@ -1,0 +1,40 @@
+
+.event-container {
+    background-color: blue;
+    width: 150px;
+    height: 150px;
+    position: relative;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.join-event-btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 60px;
+    height: 20px;
+    line-height: 0px;
+}
+
+.view-event-btn {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 60px;
+    height: 20px;
+    line-height: 30px;
+    background-color: black;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    
+}
+

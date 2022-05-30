@@ -1,0 +1,76 @@
+
+
+.host-container {
+    display: flex;
+    
+}
+
+
+
+.event-description {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.max-char-display {
+    display: inline-block;
+    
+    
+}
+
+.description-titles {
+    
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+.host-form {
+    background-color: white;
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 700px;
+    padding-top: 40px;
+    
+    
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    position: relative;
+
+}
+
+
+input,label {
+    display: block;
+}
+
+
+.input-block {
+    width: 60%;
+    position: relative;
+    height: 15%;
+    min-height: 70px;
+    
+
+}
+
+.input-block > input {
+    width: 100%;
+    margin: 0 auto;
+    height: 40%;
+}
+
+.input-block > label {
+    
+    margin-bottom: 10px;
+    
+    width: 100%;
+    
+}
+
+.create-event-btn {
+    width: 50%;
+}
