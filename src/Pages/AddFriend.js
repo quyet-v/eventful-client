@@ -4,9 +4,6 @@ import styled from "styled-components"
 import { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 
-
-
-
 const AddFriend = () => {
 
     const [searchedUser, setSearchUser] = useState("");
@@ -14,14 +11,10 @@ const AddFriend = () => {
     const [currentFriends,setCurrentFriends] = useState([]);
     const [users, setUsers] = useState()
     const [requestsSent,setRequestsSent] = useState([]);
-
-    
     
     const handleInputChange = (e) => {
       setSearchUser(e.target.value)
     }
-
-    
 
     const handleOnClick = () => {
         
@@ -81,15 +74,11 @@ const AddFriend = () => {
   return (
     
     <Container>
-
         <Wrapper>
             <FindControls>
                 <input type="text" className="search-input" placeholder='Search for user...' onChange={handleInputChange}/>
                 <FindButton onClick={(handleOnClick)}><SearchIcon /></FindButton> 
-                
-
             </FindControls>
-
             <FoundUsers userFound={userFound}>
                 {userFound == false && userFound != null && <NotFound>User not found!</NotFound>}
                 
@@ -102,7 +91,6 @@ const AddFriend = () => {
                         {checkFriends(user) && <h3>Already friends</h3>}
                         
                         {checkRequests(user) && <h3>request sent</h3>}
-
                     </User>
                 })}
             </FoundUsers>
@@ -113,15 +101,12 @@ const AddFriend = () => {
   )
 }
 
-
 const Container = styled.div `
 
     flex-grow:1;
     background-color:#2a2d34;
     position:relative;
 `
-
-
 const Wrapper = styled.div `
   background-color: white;
   width: 500px;
@@ -139,13 +124,10 @@ const Wrapper = styled.div `
 `;
 
 const FindControls = styled.div `
-  
   background-color: lightblue;
   padding: 15px;
   display: flex;
   justify-content: center;
-  
-  
 `;
 
 const FoundUsers = styled.div `
@@ -160,8 +142,6 @@ const FoundUsers = styled.div `
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   flex-grow:1;
-  
-  
 `;
 
 const AddFriendButton = styled.button `
@@ -174,10 +154,8 @@ const AddFriendButton = styled.button `
   transition: all .5s;
 
   :hover {
-    transform: scale(1.02);
-    
+    transform: scale(1.02); 
   }
-
 `;
 
 const User = styled.div `
@@ -201,9 +179,6 @@ const FindButton = styled.button `
 
 const NotFound = styled.h1 `
   line-height: 350px;
-  
-  
-  
 `;
 
 export default AddFriend

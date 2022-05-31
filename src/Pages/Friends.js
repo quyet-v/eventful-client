@@ -39,9 +39,6 @@ const Friends = () => {
      
   // }, [])
 
-  
-  
-
   // const handleMessageOpen = (user) => {
   //   setOpen(true)
   //   setChatUser(user)

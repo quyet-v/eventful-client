@@ -45,16 +45,9 @@ const Chat = ({closeChat,user}) => {
      
   }, [])
 
-  
-  
-
   // const handleMessageOpen = (user) => {
     
   //   setChatUser(user)
-    
-    
-    
-   
   // }
 
   // const handleMessageClose = () => {
@@ -106,19 +99,10 @@ const Chat = ({closeChat,user}) => {
         </MessagesContainer>
 
         <ChatInput>
-           
           <ChatInputBar placeholder='Enter Message...' onChange={handleGetInputValue} ref={inputBar}></ChatInputBar>
-      
           <SendButton  ref={sendButton} onClick={handleSendMessage} type="submit">Send</SendButton>
-           
-          
         </ChatInput>
-        
       </ChatContainer>}
-    
-    
-    
-    
     </>
   )
 }
