@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react'
 import "../Styles/Host.css"
-import Dashboard from '../Components/Dashboard'
+import Dashboard from '../components/Dashboard/Dashboard'
 import { postApiCall } from '../utils/functions'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'

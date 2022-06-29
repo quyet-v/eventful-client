@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import UserInfo from './UserInfo'
+import UserInfo from '../UserInfo'
 import { NavLink, useNavigate,Outlet } from 'react-router-dom'
-import { getApiCall } from '../utils/functions'
+import { getApiCall } from '../../utils/functions'
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
 import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
 import AddLocationAltTwoToneIcon from '@mui/icons-material/AddLocationAltTwoTone';
 import CalendarTodaySharpIcon from '@mui/icons-material/CalendarTodaySharp';
 import EventNoteSharpIcon from '@mui/icons-material/EventNoteSharp';
-import {Button as LogoutButton} from "../StyledComponents/Components.js"
+import {Button as LogoutButton} from "../../StyledComponents/Components.js"
 
-import "../Styles/DashBoard.css"
-import FriendRequest from './FriendRequest'
+import ".././Dashboard/Dashboard.styles.css"
+import FriendRequest from '../FriendRequest'
 import styled from "styled-components"
 
 const Dashboard = () => {

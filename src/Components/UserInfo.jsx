@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import UserLogo from "../images/userlogo.png"
+import UserLogo from "../assets/images/userlogo.png"
 import { getApiCall } from '../utils/functions'
 
 

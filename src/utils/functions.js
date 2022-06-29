@@ -1,10 +1,13 @@
 export const isAuthenticated = () => {
-    let token = sessionStorage.getItem("token")
+    let token = sessionStorage.getItem("token");
+    console.log(token)
     if(token == null) {
         return false;
-    }else {
-        return true;
     }
+
+    return true;
+
+    
 
 
 }

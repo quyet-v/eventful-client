@@ -1,7 +1,7 @@
 import React from 'react'
-import NavBar from "../Components/NavBar"
+import NavBar from "../components/NavBar/NavBar"
 import styled from 'styled-components'
-import background from "../images/herologo2.png"
+import background from "../assets/images/herologo2.png"
 
 const Home = () => {
   return (

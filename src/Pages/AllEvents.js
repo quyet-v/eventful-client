@@ -1,7 +1,7 @@
 import React from 'react'
 import {getApiCall,postApiCall} from "../utils/functions"
 import "../Styles/MyEvents.css"
-import Event from "../Components/Event"
+import Event from "../components/Event"
 import styled from "styled-components"
 import { useState,useEffect } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';

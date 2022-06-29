@@ -1,15 +1,15 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import Home from './Pages/Home'
-import Login from './Pages/Login'
-import Signup from './Pages/Signup'
-import Dashboard from './Components/Dashboard'
-import PrivateRoute from './Components/PrivateRoute'
-import Host from './Pages/Host'
-import MyEvents from './Pages/MyEvents'
-import AllEvents from './Pages/AllEvents'
-import Friends from './Pages/Friends'
-import AddFriend from './Pages/AddFriend'
+import Home from './pages/Home'
+import Login from './pages/auth/Login'
+import Signup from './pages/auth/Signup'
+import Dashboard from './components/Dashboard/Dashboard'
+import PrivateRoute from './components/PrivateRoute'
+import Host from './pages/Host'
+import MyEvents from './pages/MyEvents'
+import AllEvents from './pages/AllEvents'
+import Friends from './pages/Friends'
+import AddFriend from './pages/AddFriend'
 
 const App = () => {
   return (
