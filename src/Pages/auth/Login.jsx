@@ -1,27 +1,65 @@
 import React from 'react'
 import styled from "styled-components"
 import "../../Styles/style.css"
-import { NavLink } from 'react-router-dom'
+import { NavLink,useNavigate } from 'react-router-dom'
+import CenteredContainer from '../../components/CenteredContainer/CenteredContainer'
+import AuthForm from '../../components/AuthForm/AuthForm'
+import { postApiCall } from '../../utils/functions'
 
 const Login = () => {
+
+    const navigate = useNavigate();
+
+    const handleClick = async (username,password,e,loading,success) => {
+        if(username && password) {
+            loading(true);
+            e.preventDefault();
+            
+            postApiCall("http://localhost:4000/api/auth/login",{
+                username: username,
+                password: password
+            })
+            .then(res => {
+                if(res.status === 200) {
+                    return res.json();
+                }else if(res.status === 400) {
+                    success(false);
+                    loading(false);
+                    return;
+                }
+            })
+            .then(res => {
+                if(res) {
+                    sessionStorage.setItem("token",res.token);
+                    console.log(res)
+                    navigate("/dashboard");
+                }
+            })
+
+           
+            
+        }
+      
+      
+    }
+
+
+
   return (
+    
     <Wrapper>
         <LoginContainer>
-            <h1>Login</h1>
-            <LoginForm>
-                <TextInput placeholder='Username'></TextInput>
-                <TextInput type="password" placeholder='Password' ></TextInput>
-                <SubmitButton>Login</SubmitButton>
-                <SignupLink>
-                    <p>No Account?</p>
-                    <SignupButton to={"/signup"}>Create One</SignupButton>
-                </SignupLink>
-            </LoginForm>
-            
-
+            <AuthForm 
+                heading={"Login"} 
+                buttonLabel="Login" 
+                redirect={"signup"} 
+                redirectMessage="No Account?"
+                redirectLinkMessage="Create one"
+                isSignup={false}
+                apiType={handleClick}
+                
+            />
         </LoginContainer>
-
-
     </Wrapper>
   )
 }
@@ -46,20 +84,6 @@ const LoginContainer = styled.div `
     flex-direction:column;
     padding-top:50px;
     align-items:center;
-`
-
-const LoginForm = styled.form `
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    height:250px;
-    width:80%;
-    
-    
-
-    
-
-    
 `
 
 const TextInput = styled.input `

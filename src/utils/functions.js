@@ -1,6 +1,6 @@
 export const isAuthenticated = () => {
     let token = sessionStorage.getItem("token");
-    console.log(token)
+ 
     if(token == null) {
         return false;
     }
@@ -13,7 +13,7 @@ export const isAuthenticated = () => {
 }
 
 export const postApiCall = async (url,info) => {
-    const apiCall = await fetch(url,{
+    return await fetch(url,{
         method:"POST",
         headers: {
             "Content-Type": "application/json",
@@ -21,21 +21,9 @@ export const postApiCall = async (url,info) => {
         },
         body: JSON.stringify(info)
     })
-    .then((res) => {
-        if(res.status === 200) {
-            return res.json()
-        }
-    })
-    .then((data) => {
-        return data
-    })
-    .catch((error) => {
-        console.log(error.message)
-    })
+    
 
-    if(apiCall) {
-        return apiCall
-    }
+    
 }
 
 export const putApiCall = async (link,info) => {

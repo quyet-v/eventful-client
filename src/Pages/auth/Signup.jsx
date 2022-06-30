@@ -1,27 +1,59 @@
 import React from 'react'
 import styled from "styled-components"
 import "../../Styles/style.css"
-import { NavLink } from 'react-router-dom'
+import { NavLink,useNavigate } from 'react-router-dom'
+import AuthForm from '../../components/AuthForm/AuthForm'
+import { postApiCall } from '../../utils/functions'
 
 const Signup = () => {
+    
+    const navigate = useNavigate();
+
+    const handleSingup = async (email,username,password,e,loading,success) => {
+        if(email,username,password) {
+            loading(true);
+            e.preventDefault();
+            let userSignupInfo = {
+                email: email,
+                username: username,
+                password: password
+            }
+
+            postApiCall("http://localhost:4000/api/auth/signup",userSignupInfo)
+            .then(res => {
+                if(res.status === 200) {
+                    return res.json();
+                }else {
+                    success(false);
+                    loading(false);
+                    return;
+                }
+            })
+            .then(res => {
+                if(res) {
+                    sessionStorage.setItem("token", res.token);
+                    navigate("/dashboard")
+                }
+            })
+            
+        }
+    }
+
+
+
   return (
     <Wrapper>
         <LoginContainer>
-            <h1>Signup</h1>
-            <LoginForm>
-                <TextInput placeholder='Username'></TextInput>
-                <TextInput type="password" placeholder='Password' ></TextInput>
-                <SubmitButton>Signup</SubmitButton>
-                <SignupLink>
-                    <p>Already have an account?</p>
-                    <SignupButton to={"/login"}>Login</SignupButton>
-                </SignupLink>
-            </LoginForm>
-            
-
+            <AuthForm 
+                heading={"Signup"} 
+                buttonLabel="Signup" 
+                redirect={"login"}
+                redirectMessage="Already have account?"
+                redirectLinkMessage="Login"
+                isSignup={true}
+                apiType={handleSingup}
+            />
         </LoginContainer>
-
-
     </Wrapper>
   )
 }
@@ -33,8 +65,6 @@ const Wrapper = styled.div `
     display: flex;
     justify-content:center;
     align-items:center;
-
-
 
 `
 
@@ -54,12 +84,7 @@ const LoginForm = styled.form `
     align-items:center;
     height:250px;
     width:80%;
-    
-    
-
-    
-
-    
+  
 `
 
 const TextInput = styled.input `
