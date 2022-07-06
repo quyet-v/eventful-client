@@ -1,0 +1,44 @@
+
+
+
+.search-input {
+    display: inline-block;
+    width: 300px;
+    height: 40px;
+    
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 10px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    
+    border-radius: 20px;
+}
+
+.search-icon {
+    margin-left: 5px;
+}
+
+.options {
+    
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.friends,.profile {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    
+}
+
+.profile {
+    transform: scale(1.5);
+}
+

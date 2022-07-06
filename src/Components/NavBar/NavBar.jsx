@@ -1,16 +1,21 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import '../../Styles/style.css'
+import Logo from "../../assets/images/Logo.svg"
 
-const NavBar = () => {
+
+
+const NavBar = ({showLoading}) => {
+  
+
   return (
     <Wrapper>
         
-        <h1 className="logo">EVENTful</h1>
+        
+        <img src={Logo}></img>
         <ButtonWrapper>
-          <Button to="/login">Login</Button>
-          <Button to="/signup">Sign up</Button>
+          <Button onClick={() =>showLoading(true)}>Login</Button>
         </ButtonWrapper>
 
         
@@ -30,7 +35,7 @@ const Wrapper = styled.div `
   padding:20px;
   
   
-  border-bottom:1px solid black;
+  
 
 `
 
@@ -43,12 +48,17 @@ const ButtonWrapper = styled.div `
   
 `
 
-const Button = styled(NavLink) `
+const Button = styled.button `
   background:black;
   color:white;
   padding:5px;
   text-decoration:none;
   transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  width:60px;
+  box-shadow: 3px 3px rgba(0,0,0,0.2);
 
   :hover {
     color: rgb(0, 102, 255);

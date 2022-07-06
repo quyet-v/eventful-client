@@ -10,10 +10,17 @@ const UserInfo = () => {
  
 
   useEffect(() => {
-    getApiCall("https://eventfuloflies.herokuapp.com/getUserInfo")
+    getApiCall("http://localhost:4000/api/users/info")
     .then((res) => {
-      setUsername(res.username)
+      return res.json();
     })
+    .then(res => {
+      if(res) {
+        setUsername(res.username)
+      }
+    })
+
+
   }, [])
 
   return (

@@ -78,8 +78,8 @@ export const deleteApiCall = async (link,info) => {
     }
 }
 
-export const getApiCall = (url) => {
-    const apiCall = fetch(url,{
+export const getApiCall = async (url) => {
+    return await fetch(url,{
         method:"GET",
         headers: {
             "Content-Type": "application/json",
@@ -87,22 +87,6 @@ export const getApiCall = (url) => {
         }
         
     })
-    .then((res) => {
-        
-        if(res.status === 200) {
-            return res.json()
-        }
-    })
-    .then((data) => {
-        
-        return data
-    })
-    .catch((error) => {
-        console.log(error.message)
-    })
-
-    if(apiCall) {
-        return apiCall
-    }
+    
 }
 

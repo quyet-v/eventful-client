@@ -47,10 +47,7 @@ const AuthForm = ({buttonLabel,redirect,redirectMessage,redirectLinkMessage,isSi
               {!showLoading && buttonLabel}
               
               </button>
-            <div className='redirect'>
-                <p>{redirectMessage}</p>
-                <NavLink to={`/${redirect}`}>{redirectLinkMessage}</NavLink>
-            </div>
+           
         </form>
     </div>
   )

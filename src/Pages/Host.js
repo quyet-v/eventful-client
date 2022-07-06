@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 import "../Styles/Host.css"
 import Dashboard from '../components/Dashboard/Dashboard'
 import { postApiCall } from '../utils/functions'
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import {Button as HostButton, LoadingBox} from "../StyledComponents/Components.js"
 import CircularProgress from '@mui/material/CircularProgress';
-
+import Cool from "../assets/images/Logo.svg"
 
 const Host = () => {
     
@@ -40,8 +40,8 @@ const Host = () => {
     
 
 
-
-    
+    let image = useRef(null)
+    let fileReader = new FileReader();
     let navigate = useNavigate()
     const [showLoading,setShowLoading] = useState(false)
     let [host,setHost] = useState("")
@@ -52,6 +52,11 @@ const Host = () => {
     let [location,setLocation] = useState("")
     let [charRemaining, setCharRemaining] = useState(25)
     let [keyPress,setKeyPress] = useState()
+    let [imgSrc,setImgSrc] = useState();
+
+    fileReader.addEventListener("load", () => {
+        setImgSrc(fileReader.result);
+    })
 
     const handleInputs = (e) => {
         
@@ -100,10 +105,11 @@ const Host = () => {
                 description: description,
                 date: date,
                 time: time,
-                location: location
+                location: location,
+                img: imgSrc
             }        
             
-            let hostApiCall = await postApiCall("https://eventfuloflies.herokuapp.com/createEvent",hostInfo)
+            let hostApiCall = await postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/create`,hostInfo)
 
             if(hostApiCall) {
                 console.log(hostApiCall)
@@ -112,78 +118,136 @@ const Host = () => {
         }
     }
 
+    const handleFile = (e) => {
+        fileReader.readAsDataURL(e.target.files[0]);
+        
+    }
 
 
 
-  return (
-        <HostContainer>
-            <HostForm>
-                <div className="input-block">
-                    <label htmlFor='event-name-id' >Event Name</label>
-                    <input type="text" id='event-name-id' className="event-name" onChange={handleInputs} required />
-                </div>
-
-                <div className="input-block">
-                    
-                    <div className="description-titles">
-                        
-                        <label >Event Description</label>
-                        <span className="max-char-display">({charRemaining} chars remaining)</span>
+    return (
+        <Wrapper>
+            <HostContainer>
+                <HostForm>
+                    <div className="input-block">
+                        <label htmlFor='event-name-id' >Event Name</label>
+                        <input type="text" id='event-name-id' className="event-name" onChange={handleInputs} required />
                     </div>
 
-                    <input type="text" required maxLength="25"  className="event-description" onKeyDown={(event) => setKeyPress(event.key)} onChange={handleInputs} />
+                    <div className="input-block">
+                        
+                        <div className="description-titles">
+                            
+                            <label >Event Description</label>
+                            <span className="max-char-display">({charRemaining} chars remaining)</span>
+                        </div>
+
+                        <input type="text" required maxLength="25"  className="event-description" onKeyDown={(event) => setKeyPress(event.key)} onChange={handleInputs} />
+                        
+                    </div>
+
+                    <div className="input-block">
+                        <label >Event Date</label>
+                        <input type="date" required className="event-date" onChange={handleInputs} />
+                    </div>
+
+                    <div className="input-block">
+                        <label >Event Time</label>
+                        <input type="time" required className="event-time" onChange={handleInputs} />
+                    </div>
+
+                    <div className="input-block">
+                        <label >Event Location</label>
+                        <input type="text" id='autocomplete' required className="event-location"  onChange={handleInputs}/>
+                    </div>
+
+                    {/* <button type="submit" className="create-event-btn" onClick={handleClick}>Create Event</button> */}
+                    <HostButton color={"rgb(229,2,59)"} type={"submit"} shadowColor={"rgb(162,0,54)"} onClick={handleClick}>
+                        {!showLoading && "Host"}
+                        {showLoading && <LoadingBox>
+                            <CircularProgress size={"20px"} />   
+                        </LoadingBox>}
+                    </HostButton>
                     
-                </div>
-
-                <div className="input-block">
-                    <label >Event Date</label>
-                    <input type="date" required className="event-date" onChange={handleInputs} />
-                </div>
-
-                <div className="input-block">
-                    <label >Event Time</label>
-                    <input type="time" required className="event-time" onChange={handleInputs} />
-                </div>
-
-                <div className="input-block">
-                    <label >Event Location</label>
-                    <input type="text" id='autocomplete' required className="event-location"  onChange={handleInputs}/>
-                </div>
-
-                {/* <button type="submit" className="create-event-btn" onClick={handleClick}>Create Event</button> */}
-                <HostButton color={"rgb(229,2,59)"} type={"submit"} shadowColor={"rgb(162,0,54)"} onClick={handleClick}>
-                    {!showLoading && "Host"}
-                    {showLoading && <LoadingBox>
-                        <CircularProgress size={"20px"} />   
-                    </LoadingBox>}
-                </HostButton>
+                </HostForm>
                 
-            </HostForm>
-        
-        
-        </HostContainer>
-  )
+                <ImageUpload>
+                    
+                    <ChosenImage src={imgSrc}></ChosenImage>
+                   
+                    <ChooseImageInput type={"file"} placeholder="Choose" accept={"image/*"} onChange={handleFile}></ChooseImageInput>
+
+                </ImageUpload>
+            
+            </HostContainer>
+        </Wrapper>
+    )
 }
 
 const HostContainer = styled.div `
-    flex-grow:1;
-    background: -webkit-linear-gradient(to top, #ad5389, #3c1053); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #ad5389, #3c1053);
-    position:relative;
+   
+    background-color: white;
+    margin:40px;
+    width:80%;
+    display:flex;
 
 `;
+
+const Wrapper = styled.div `
+    flex-grow:1;
+    background-color: #2A2D34;
+    display:flex;
+    justify-content:center;
+
+
+`
+
+const ChosenImage = styled.img `
+    
+    object-fit:cover;
+    width:300px;
+    height:300px;
+   
+    
+    border: 2px solid black;
+
+    
+`
+
+const ChooseImageInput = styled.input `
+    background-color:grey;
+    padding:10px;
+   
+    margin-top:10px;
+   
+    text-align:center;
+    border-radius:10px;
+
+
+`
 
 const HostForm = styled.form `
-    background-color:white;
-    width: 80%;
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    margin: auto;
+    
+    width: 50%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    border-right: 3px solid black;
+   
 
 
 `;
+
+const ImageUpload = styled.div `
+    
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+`
 
 export default Host

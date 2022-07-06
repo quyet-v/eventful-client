@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react'
-import { postApiCall } from '../utils/functions'
+import { getApiCall,postApiCall } from '../utils/functions'
 import styled from "styled-components"
 import { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+
+
 
 const AddFriend = () => {
 
@@ -19,20 +23,25 @@ const AddFriend = () => {
     const handleOnClick = () => {
         
         if(searchedUser != "") {
-            postApiCall("https://eventfuloflies.herokuapp.com/findUsers",{input: searchedUser})
-            .then((res) => {
-                setUsers(res.resultsFilter);
-                setCurrentFriends(res.currentFriends)
-                setRequestsSent(res.requestsSent)
-                
-                if(res.resultsFilter.length == 0) {
-                  setUserFound(false)
-                }else {
-                  setUserFound(true)
-                }
+			
+            getApiCall(`${process.env.REACT_APP_HOST_URL}/api/users/all`)
+			.then((res) => {
+				return res.json();
+			})
+			.then(res => {
+				setUsers(res.allUsers)
+			})
 
-            })
+			getApiCall(`${process.env.REACT_APP_HOST_URL}/api/users/info`)
+			.then((res) => {
+				return res.json();
+			})
+			.then(res => {
+				
+				setCurrentFriends(res.friends);
+				setRequestsSent(res.sentRequests);
 
+			}) 
         }
         else {
             setUsers(null);
@@ -47,12 +56,15 @@ const AddFriend = () => {
 
     const handleAddFriendClick = async (friendID) => {
 
-        postApiCall("https://eventfuloflies.herokuapp.com/sendFriendRequest",{ID: friendID})
+        postApiCall(`${process.env.REACT_APP_HOST_URL}/api/friends/requests/send/${friendID}`)
         .then((res) => {
-            setCurrentFriends(res.currentFriends)
-            setRequestsSent(res.currentRequests)
-            
+			return res.json();
         })
+		.then(res => {
+		
+			setCurrentFriends(res.friends)
+            setRequestsSent(res.sentRequests)
+		})
     }
 
     const checkRequests = (user) => {
@@ -87,8 +99,8 @@ const AddFriend = () => {
                     return <User key={user._id}>
                         {user.username}
                         
-                        {!checkRequests(user) && !checkFriends(user) && <AddFriendButton onClick={() => handleAddFriendClick(user._id)}>Add</AddFriendButton>}
-                        {checkFriends(user) && <h3>Already friends</h3>}
+                        {!checkRequests(user) && !checkFriends(user) && <AddFriendButton onClick={() => handleAddFriendClick(user._id)}><PersonAddIcon /> Add</AddFriendButton>}
+                        {checkFriends(user) && <HowToRegIcon />}
                         
                         {checkRequests(user) && <h3>request sent</h3>}
                     </User>
@@ -142,6 +154,7 @@ const FoundUsers = styled.div `
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   flex-grow:1;
+  overflow-y:scroll;
 `;
 
 const AddFriendButton = styled.button `

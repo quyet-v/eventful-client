@@ -7,12 +7,13 @@ import Chat from '../components/Chat'
 
 const Friends = () => {
 
-  const [friends,setFriends] = useState()
+  const [friends,setFriends] = useState([{}])
   const [open,setOpen] = useState()
   const [chatUser,setChatUser] = useState()
   const [socket,setSocket] = useState()
   const [message,setMessage] = useState();
   const [messageBack,setMessageBack] = useState();
+  const [finishedLoading,setFinishedLoading] = useState(false);
 
   const inputBar = useRef(null)
   const messagesBox = useRef(null)
@@ -32,11 +33,16 @@ const Friends = () => {
   //     messagesBox.current.scrollTop = messagesBox.current.scrollHeight
   //   })
     
-    getApiCall("https://eventfuloflies.herokuapp.com/getFriends")
-    .then((res) => {
-      setFriends(res.friends)
-    })      
-     
+	getApiCall(`${process.env.REACT_APP_HOST_URL}/api/friends`)
+	.then((res) => {
+		return res.json();
+	})
+	.then(res => {
+		
+		setFriends(res.content)
+		setFinishedLoading(true);
+	})      
+
   // }, [])
 
   // const handleMessageOpen = (user) => {
@@ -94,13 +100,13 @@ const Friends = () => {
       <Wrapper>
         <FriendsTitle>Current Friends</FriendsTitle>
         <FriendsList>
-          
-          {friends != null && friends.map((friend) => {
-              return <Friend key={friend._id}>
-              {friend.username}
-              <MessageButton onClick={() => {handleMessageOpen(friend._id)}}>Message</MessageButton>
-            </Friend>
-          })}
+			{finishedLoading && friends.map((friend) => {
+				
+				return <Friend key={friend.id + 1}>
+					{friend.username}
+					<MessageButton onClick={() => {handleMessageOpen(friend.id)}}>Message</MessageButton>
+				</Friend>  
+			})}
 
         </FriendsList>
       </Wrapper>

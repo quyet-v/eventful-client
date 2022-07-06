@@ -15,8 +15,11 @@ const MyEvents = () => {
 
     useEffect(() => {
 
-      getApiCall("https://eventfuloflies.herokuapp.com/getUserEvents")
+      getApiCall("http://localhost:4000/api/users/events")
       .then((res) => {
+        return res.json();
+      })
+      .then(res => {
         setEvents(res.events)
         setShowLoading(false)
         if(res.events.length <= 0) {

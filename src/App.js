@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import Home from './pages/Home'
+import Home from './pages/Home/Home'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -17,8 +17,6 @@ const App = () => {
       <div>
         <Routes>
           <Route path='/' element={<Home></Home>} ></Route>
-          <Route path='/login' element={<Login></Login>} ></Route>
-          <Route path='/signup' element={<Signup></Signup>} ></Route>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard></Dashboard></PrivateRoute>}>
             <Route path='host' element={<PrivateRoute><Host></Host></PrivateRoute>} ></Route>
             <Route path='myevents' element={<PrivateRoute><MyEvents></MyEvents></PrivateRoute>} ></Route>
