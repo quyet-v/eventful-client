@@ -13,10 +13,6 @@ const Home = () => {
 	const [openLogin,setOpenLogin] = useState(false);
 	const presentImg = useRef(null);
 
-	const handlePresentClick = () => {
-		presentImg.current.classList.add("play-animation")
-	}
-
   return (
     <Wrapper>
 		{openLogin && <Login showLoading={setOpenLogin}/>}

@@ -1,15 +1,17 @@
 import React from 'react'
 import {getApiCall,postApiCall} from "../utils/functions"
 import "../Styles/MyEvents.css"
-import Event from "../components/Event"
+import Event from "../components/Event/Event"
 import styled from "styled-components"
 import { useState,useEffect } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { Buffer } from 'buffer'
 const AllEvents = () => {
 
   const [events,setEvents] = useState([])
   const [showLoading,setShowLoading] = useState(true)
+  const [isActive,setIsActive] = useState("");
   
   useEffect(() => {
     
@@ -26,14 +28,22 @@ const AllEvents = () => {
   }, [])
    
   return (
-    <Wrapper>
+    <Wrapper onClick={(e) => {
+      setIsActive(null)
+    }}>
       
       <EventContainer className={!showLoading && "show-loading-finished"}>
           {events.map((event) => {
+              
               return <Event key={events.indexOf(event)} 
                 eventID={event._id} 
                 name={event.name} 
-                host={event.host}>
+                host={event.host}
+                img={`data:image/png;base64,${Buffer.from(event.img.data).toString("base64")}`}
+                setIsActive={setIsActive}
+                active={isActive}
+                >
+                
               </Event>
             })
           }

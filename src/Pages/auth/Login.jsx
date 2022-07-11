@@ -1,4 +1,5 @@
 import React from 'react'
+import { useQuery } from 'react-query'
 import styled from "styled-components"
 import "../../Styles/style.css"
 import { NavLink,useNavigate } from 'react-router-dom'
@@ -12,7 +13,11 @@ const Login = ({showLoading}) => {
 
     const navigate = useNavigate();
     const [formClicked,setFormClicked] = useState(false)
+    const [status,setStatus] = useState("")
 
+    
+    
+    
     const handleClick = async (username,password,e,loading,success) => {
         if(username && password) {
             loading(true);
@@ -25,16 +30,17 @@ const Login = ({showLoading}) => {
             .then(res => {
                 if(res.status === 200) {
                     return res.json();
-                }else if(res.status === 400) {
+                }
+                else {
                     success(false);
                     loading(false);
-                    return;
+                 
                 }
             })
             .then(res => {
                 if(res) {
                     sessionStorage.setItem("token",res.token);
-                    console.log(res)
+                
                     navigate("/dashboard");
                 }
             })
@@ -46,12 +52,16 @@ const Login = ({showLoading}) => {
       
     }
 
+    const login = () => {
+
+    }
+
 
 
   return (
     
-    <Wrapper>
-        <LoginContainer>
+    <Wrapper onClick={() => showLoading(false)}>
+        <LoginContainer onClick={(e) => e.stopPropagation()}>
             <Button onClick={() => showLoading(false)}>{<CloseIcon />}</Button>
            
             <AuthForm 

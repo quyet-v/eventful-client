@@ -1,12 +1,12 @@
 import React, { Component, useEffect, useRef, useState } from 'react'
-import "../Styles/Host.css"
-import Dashboard from '../components/Dashboard/Dashboard'
-import { postApiCall } from '../utils/functions'
+import "../Host/Host.styles.css"
+import Dashboard from '../../components/Dashboard/Dashboard'
+import { postApiCall } from '../../utils/functions'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import {Button as HostButton, LoadingBox} from "../StyledComponents/Components.js"
+import {Button as HostButton, LoadingBox} from "../../StyledComponents/Components.js"
 import CircularProgress from '@mui/material/CircularProgress';
-import Cool from "../assets/images/Logo.svg"
+
 
 const Host = () => {
     
@@ -56,13 +56,14 @@ const Host = () => {
 
     fileReader.addEventListener("load", () => {
         setImgSrc(fileReader.result);
+        
     })
 
     const handleInputs = (e) => {
         
+        const inputName = e.target.className.split(' ');
         
-        
-        switch(e.target.className) {
+        switch(inputName[1]) {
             case "event-name":
                 setName(e.target.value)
                 break
@@ -94,13 +95,12 @@ const Host = () => {
     }
 
     const handleClick = async (e) => {
-        
+        console.log(name)
         if(name != "" && description != "" && date != "" && time != "" && location != "") {
             setShowLoading(true)
-            e.preventDefault()
+            e.preventDefault();
         
             let hostInfo = {
-                host: sessionStorage.getItem("user-info"),
                 name: name,
                 description: description,
                 date: date,
@@ -131,7 +131,7 @@ const Host = () => {
                 <HostForm>
                     <div className="input-block">
                         <label htmlFor='event-name-id' >Event Name</label>
-                        <input type="text" id='event-name-id' className="event-name" onChange={handleInputs} required />
+                        <input type="text" id='event-name-id' className="event-input event-name" onChange={handleInputs} required />
                     </div>
 
                     <div className="input-block">
@@ -142,23 +142,23 @@ const Host = () => {
                             <span className="max-char-display">({charRemaining} chars remaining)</span>
                         </div>
 
-                        <input type="text" required maxLength="25"  className="event-description" onKeyDown={(event) => setKeyPress(event.key)} onChange={handleInputs} />
+                        <input type="text" required maxLength="25"  className="event-input event-description" onKeyDown={(event) => setKeyPress(event.key)} onChange={handleInputs} />
                         
                     </div>
 
                     <div className="input-block">
                         <label >Event Date</label>
-                        <input type="date" required className="event-date" onChange={handleInputs} />
+                        <input type="date" required className="event-input event-date" onChange={handleInputs} />
                     </div>
 
                     <div className="input-block">
                         <label >Event Time</label>
-                        <input type="time" required className="event-time" onChange={handleInputs} />
+                        <input type="time" required className="event-input event-time" onChange={handleInputs} />
                     </div>
 
                     <div className="input-block">
                         <label >Event Location</label>
-                        <input type="text" id='autocomplete' required className="event-location"  onChange={handleInputs}/>
+                        <input type="text" id='autocomplete' required className="event-input event-location"  onChange={handleInputs}/>
                     </div>
 
                     {/* <button type="submit" className="create-event-btn" onClick={handleClick}>Create Event</button> */}

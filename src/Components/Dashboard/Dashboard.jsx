@@ -17,13 +17,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import NavigationItem from '../NavigationItem/NavigationItem';
 import Navigation from '../Navigation/Navigation';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const Dashboard = () => {
 
-  const [username,setUsername] = useState("")
-  const [userID,setUserID] = useState("")
-  const navigate = useNavigate()
-  const [navItems,setNavItems] = useState([false,false,false,false])
+	const [username,setUsername] = useState("")
+	const [userID,setUserID] = useState("")
+	const navigate = useNavigate()
+	const [navItems,setNavItems] = useState([false,false,false,false])
+	const [showProfile,setShowProfile] = useState(false);
 
   const nav = useRef(null);
 
@@ -31,9 +35,18 @@ const Dashboard = () => {
     sessionStorage.removeItem("token")
     navigate("/")
   }
+
+  const handleProfileClick = (e) => {
+	e.stopPropagation();
+	setShowProfile(!showProfile)
+  }
+
+  const handleProfileOptionsClick = (e) => {
+	e.stopPropagation();
+  }
  
   return (
-    <Wrapper>
+    <Wrapper onClick={() => setShowProfile(false)}>
 		<DashboardContainer>
 
 			<div className='search'>
@@ -55,8 +68,16 @@ const Dashboard = () => {
 				
 			</Navigation>
 
+			<div className='profile-container'>
+				<button className='profile' onClick={handleProfileClick}><AccountCircleIcon></AccountCircleIcon></button>
+				<div className={showProfile ? 'profile-options show-options' : "profile-options"} onClick={handleProfileOptionsClick}>
+					<button className='profile-option'><AccountCircleIcon/>Profile</button>
+					<button className='profile-option'><SettingsIcon/>Settings</button>
+					<button className='profile-option' onClick={handleLogout}><LogoutIcon/>Logout</button>
 
-			<button className='profile'><AccountCircleIcon></AccountCircleIcon></button>
+				</div>
+			</div>
+			
 			
 		</DashboardContainer>
 

@@ -1,30 +1,27 @@
 
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import "../Styles/Event.css"
+import "../Event/Event.styles.css"
 import styled from "styled-components"
-import { postApiCall,deleteApiCall } from '../utils/functions'
+import { postApiCall,deleteApiCall } from '../../utils/functions'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { LoadingBox } from '../StyledComponents/Components.js'
+import { LoadingBox } from '../../StyledComponents/Components.js'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const Event = ({name,host,eventID,isOwner,deleteEventUpdate}) => {
+const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active}) => {
 
 
-  const [showLoading,setShowLoading] = useState(false);
-  const [showModal,setShowModal] = useState(false);
+	const [showLoading,setShowLoading] = useState(false);
+	const [showModal,setShowModal] = useState(false);
+	const [showMore,setShowMore] = useState(false);
 
   const handleJoinEvent = async () => {
-
-    
-    
-
     postApiCall(`https://eventfuloflies.herokuapp.com/joinEvent`,{eventID})
     .then((res) => {
       console.log(res)
     })
-    
   }
 
   const ViewStyle = {
@@ -53,40 +50,49 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate}) => {
   }
 
   return (
-    <EventContainer>
-
+    <EventContainer image={img} onClick={(e) => e.stopPropagation()}>
+        
         {showLoading && <LoadingBox>
-          <CircularProgress />
+        	<CircularProgress />
         </LoadingBox>}
 
 
-        {isOwner && <DeleteEventButton onMouseEnter={handleHover} onMouseLeave={handleLeave} onClick={handleDelete}>
-          <DeleteForeverIcon />
         
-          {showModal && <HoverModal show={showModal}>Delete Event</HoverModal>}
-        
-        </DeleteEventButton>}
         
         <InfoContainer>
-          <Title>{name}</Title>
-          <Title>Hosted by {host}</Title>
+			<Title>{name}</Title>
+			<Title>Hosted by {host}</Title>
         </InfoContainer>
         
-        <ButtonWrapper>
-          <NavLink style={ViewStyle} to={`/dashboard/event/${eventID}`}>View</NavLink>
-          <JoinButton onClick={handleJoinEvent}>Join</JoinButton>
-        </ButtonWrapper>
+        <div className='more-container'>
+			<ExpandMoreIcon className='more-icon' onClick={() => {
+				if(active != eventID) {
+					setShowMore(true)
+				}else {
+					setShowMore(!showMore)
+				}
+				setIsActive(eventID)
+			
+			}}/>
+		
+			<div className={active === eventID && showMore ? 'more-options show-more' : "more-options"}>
+				<button className='more-button'>View</button>
+				<button className='more-button'>Leave</button>
+			</div>
+        </div>
 
     </EventContainer>
   )
 }
 
 const EventContainer = styled.div `
-  background-color:#6761a8;
+  background-image: url(${props => props.image});
   width:150px;
   height:150px;
+  background-size: 100% 100%;
+  background-repeat:no-repeat;
   border-radius:5px;
-  
+  background-position:center;
   position:relative;
   display:flex;
   > div {
@@ -96,6 +102,8 @@ const EventContainer = styled.div `
   justify-content:space-between;
   border:2px solid black;
 `;
+
+
 
 const HoverModal = styled.div `
   position:absolute;

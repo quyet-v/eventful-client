@@ -1,5 +1,7 @@
 
 
+
+
 .host-container {
     display: flex;
     
@@ -26,6 +28,10 @@
     
 }
 
+.event-input {
+    border: 2px solid black;
+    padding: 5px;
+}
 
 .host-form {
     background-color: white;
