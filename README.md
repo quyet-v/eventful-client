@@ -1,9 +1,9 @@
 # Eventful
 
-Eventful is a web application that allows easy access to events. Users can host events to allow others to join.
+Eventful is a web application that allows easy access to events. 
 
 The aim of this project is to connect people together. 
-Eventful facilitates this by providing a platform for this purpose.
+Eventful facilitates this by providing a platform that allows users to host and join events.
 
 ## Technologies
 
