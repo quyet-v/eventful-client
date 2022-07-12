@@ -1,8 +1,11 @@
-# Getting Started with Create React App
+# Eventful
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Eventful is a web application that allows easy access to events. Users can host events to allow others to join.
 
-## Available Scripts
+The aim of this project is to connect people together. 
+Eventful facilitates this by providing a platform for this purpose.
+
+## Technologies
 
 In the project directory, you can run:
 
