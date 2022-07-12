@@ -7,7 +7,11 @@ Eventful facilitates this by providing a platform for this purpose.
 
 ## Technologies
 
-In the project directory, you can run:
+*React 17.0.2
+*Node.js 8.3.1
+*JavaScript
+*MongoDB
+
 
 ### `npm start`
 
