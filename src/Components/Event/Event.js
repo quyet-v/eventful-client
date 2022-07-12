@@ -60,8 +60,8 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
         
         
         <InfoContainer>
-			<Title>{name}</Title>
-			<Title>Hosted by {host}</Title>
+          <Title>{name}</Title>
+          <Title>Hosted by {host}</Title>
         </InfoContainer>
         
         <div className='more-container'>
@@ -94,12 +94,12 @@ const EventContainer = styled.div `
   border-radius:5px;
   background-position:center;
   position:relative;
-  display:flex;
+  
   > div {
     padding:5px;
   }
-  flex-direction:column;
-  justify-content:space-between;
+  
+ 
   border:2px solid black;
 `;
 
@@ -150,6 +150,7 @@ const DeleteEventButton = styled.button `
 const InfoContainer = styled.div `
   margin-top: 3px;
   flex-grow:1;
+  position:absolute;
 
 `;
 

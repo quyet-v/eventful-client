@@ -62,8 +62,7 @@ const Dashboard = () => {
 				<Link to="/dashboard/friends" ><PeopleAltTwoToneIcon /></Link>
 				<Link to="/dashboard/add-friends" ><GroupAddTwoToneIcon /></Link> */}
 				<NavigationItem link={"/dashboard/host"} logo={<AddLocationAltTwoToneIcon />} info={"Host"}></NavigationItem>
-				<NavigationItem link={"/dashboard/myevents"} logo={<CalendarTodaySharpIcon />} info={"My Events"}></NavigationItem>
-				<NavigationItem link={"/dashboard/allevents"} logo={<EventNoteSharpIcon />} info={"All Events"}></NavigationItem>
+				<NavigationItem link={"/dashboard/events"} logo={<EventNoteSharpIcon />} info={"Events"}></NavigationItem>
 				<NavigationItem link={"/dashboard/friends"} logo={<PeopleAltTwoToneIcon />} info={"Friends"}></NavigationItem>
 				
 			</Navigation>
