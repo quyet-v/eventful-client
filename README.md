@@ -13,5 +13,15 @@ Built with
 - JavaScript
 - MongoDB
 
+## Setup
+
+To setup the front-end
+- git clone https://github.com/bsharpnoob/eventful-client.git
+- cd eventful-client
+
+- npm install
+
+## Demo
+
 
 
