@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import "../Event/Event.styles.css"
 import styled from "styled-components"
 import { postApiCall,deleteApiCall } from '../../utils/functions'
@@ -9,13 +9,17 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { LoadingBox } from '../../StyledComponents/Components.js'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import userEvent from '@testing-library/user-event'
 
-const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active}) => {
+
+const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active,userEvents}) => {
 
 
 	const [showLoading,setShowLoading] = useState(false);
 	const [showModal,setShowModal] = useState(false);
 	const [showMore,setShowMore] = useState(false);
+  
+  const navigate = useNavigate();
 
   const handleJoinEvent = async () => {
     postApiCall(`https://eventfuloflies.herokuapp.com/joinEvent`,{eventID})
@@ -49,6 +53,12 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
     setShowModal(false);
   }
 
+  const handleView = () => {
+    navigate("/dashboard/event/1234")
+  }
+
+  
+
   return (
     <EventContainer image={img} onClick={(e) => e.stopPropagation()}>
         
@@ -56,7 +66,7 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
         	<CircularProgress />
         </LoadingBox>}
 
-
+        
         
         
         <InfoContainer>
@@ -76,8 +86,9 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
 			}}/>
 		
 			<div className={active === eventID && showMore ? 'more-options show-more' : "more-options"}>
-				<button className='more-button'>View</button>
+				<button className='more-button' onClick={handleView}>View</button>
 				<button className='more-button'>Leave</button>
+        {isOwner && <button className='more-button'>Delete</button>}
 			</div>
         </div>
 

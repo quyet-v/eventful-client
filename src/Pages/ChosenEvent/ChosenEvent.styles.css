@@ -1,0 +1,15 @@
+
+
+.event-container {
+    width: 700px;
+    height: 500px;
+    background-color: white;
+}
+
+.container {
+    background-color: grey;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

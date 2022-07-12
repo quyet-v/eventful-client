@@ -9,6 +9,7 @@ import Host from './pages/Host/Host'
 import Events from './pages/Events/Events'
 import Friends from './pages/Friends'
 import AddFriend from './pages/AddFriend'
+import ChosenEvent from './pages/ChosenEvent/ChosenEvent'
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
             <Route path='events' element={<PrivateRoute><Events></Events></PrivateRoute>} ></Route>
             <Route path='friends' element={<PrivateRoute><Friends></Friends></PrivateRoute>} ></Route>
             <Route path='add-friends' element={<PrivateRoute><AddFriend></AddFriend></PrivateRoute>} ></Route>
-            
+            <Route path='event/:id' element={<PrivateRoute><ChosenEvent></ChosenEvent></PrivateRoute>}></Route>
           </Route>
          
 

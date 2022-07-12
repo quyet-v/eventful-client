@@ -13,7 +13,8 @@ const Events = () => {
   const [showLoading,setShowLoading] = useState(true)
   const [isActive,setIsActive] = useState("");
   const [userEvents,setUserEvents] = useState([]);
-  const [allEvents,setAllEvents] = useState([])
+  const [allEvents,setAllEvents] = useState([]);
+
   
   useEffect(() => {
     
@@ -49,6 +50,17 @@ const Events = () => {
 		setChosenEvents(allEvents);
 	}
   }
+
+  const checkOwner = (event) => {
+	for(let i = 0; i < userEvents.length; i++) {
+		
+		if(userEvents[i]._id === event) {
+			return true;
+		}
+	}
+
+	return false;
+  }
    
   return (
     <Wrapper onClick={(e) => {
@@ -78,6 +90,7 @@ const Events = () => {
 						img={`data:image/png;base64,${Buffer.from(event.img.data).toString("base64")}`}
 						setIsActive={setIsActive}
 						active={isActive}
+						isOwner={checkOwner(event._id)}
 						>
 					
 					</Event>
