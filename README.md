@@ -33,6 +33,8 @@ npm install
 
 ## Demo
 ![alt text](https://github.com/bsharpnoob/eventful-client/blob/main/demo/demo1.png?raw=true)
-
+![alt text](https://github.com/bsharpnoob/eventful-client/blob/main/demo/demo2.png?raw=true)
+![alt text](https://github.com/bsharpnoob/eventful-client/blob/main/demo/demo3.png?raw=true)
+![alt text](https://github.com/bsharpnoob/eventful-client/blob/main/demo/demo4.png?raw=true)
 
 
