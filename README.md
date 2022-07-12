@@ -5,6 +5,14 @@ Eventful is a web application that allows easy access to events.
 The aim of this project is to connect people together. 
 Eventful facilitates this by providing a platform that allows users to host and join events.
 
+## Deployment
+
+Front-end deployed with Netlify
+https://eventfuloflies.netlify.app/
+
+Back-end deployed with Heroku
+https://eventfuloflies.herokuapp.com/
+
 ## Technologies
 
 Built with
