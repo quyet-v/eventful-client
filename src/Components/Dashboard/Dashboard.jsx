@@ -23,11 +23,26 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const Dashboard = () => {
 
-	const [username,setUsername] = useState("")
+	const [user,setUser] = useState({})
 	const [userID,setUserID] = useState("")
 	const navigate = useNavigate()
-	const [navItems,setNavItems] = useState([false,false,false,false])
 	const [showProfile,setShowProfile] = useState(false);
+
+	useEffect(() => {
+		getApiCall(`${process.env.REACT_APP_HOST_URL}/api/users/info`)
+		.then((res) => {
+		  return res.json();
+		})
+		.then(res => {
+		  if(res) {
+			setUser(res)
+			
+		  }
+		})
+	
+	
+	  }, [])
+
 
   const nav = useRef(null);
 
@@ -80,7 +95,7 @@ const Dashboard = () => {
 			
 		</DashboardContainer>
 
-		<Outlet />
+		<Outlet context={[user,setUser]}/>
     </Wrapper>
   )
 }

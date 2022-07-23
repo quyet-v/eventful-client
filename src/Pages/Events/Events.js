@@ -7,41 +7,44 @@ import { useState,useEffect } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { Buffer } from 'buffer'
+import { useOutletContext } from 'react-router-dom'
+
+
 const Events = () => {
-
-  const [chosenEvents,setChosenEvents] = useState([])
-  const [showLoading,setShowLoading] = useState(true)
-  const [isActive,setIsActive] = useState("");
-  const [userEvents,setUserEvents] = useState([]);
-  const [allEvents,setAllEvents] = useState([]);
-
+	const [user,setUser] = useOutletContext();
+	const [chosenEvents,setChosenEvents] = useState([])
+	const [showLoading,setShowLoading] = useState(true)
+	const [isActive,setIsActive] = useState("");
+	const [userEvents,setUserEvents] = useState([]);
+	const [allEvents,setAllEvents] = useState([]);
+	const [joinedEvents,setJoinedEvents] = useState([]);
   
-  useEffect(() => {
-    
-	getApiCall("http://localhost:4000/api/events/user")
-    .then((res) => {
-      return res.json();
-    })
-    .then(res => {
-      setUserEvents(res.events)
-    })
+	useEffect(() => {
 
-    getApiCall("http://localhost:4000/api/events/all")
-    .then((res) => {
-      
-      return res.json();
-    })
-    .then(res => {
-      setAllEvents(res.events)
-      setShowLoading(false)
-	  setChosenEvents(res.events)
-    })
+		getApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/user`)
+		.then((res) => {
+			return res.json();
+		})
+		.then(res => {
+			setUserEvents(res.events)
+		})
 
-	
+		getApiCall("http://localhost:4000/api/events/all")
+		.then((res) => {
+			
+			return res.json();
+		})
+		.then(res => {
+			setAllEvents(res.events)
+			setShowLoading(false)
+			setChosenEvents(res.events)
+		})
 
-	
 
-  }, [])
+
+
+
+	}, [])
 
   const handleSelect = (e) => {
 	if(e.target.value === "My Events") {
@@ -68,7 +71,7 @@ const Events = () => {
     }}>
       
 		
-
+		
 		<EventContainer className={!showLoading && "show-loading-finished"}>
 			{!showLoading && <div className='event-filters'>
 				
@@ -91,6 +94,8 @@ const Events = () => {
 						setIsActive={setIsActive}
 						active={isActive}
 						isOwner={checkOwner(event._id)}
+						user={user}
+						setUser={setUser}
 						>
 					
 					</Event>

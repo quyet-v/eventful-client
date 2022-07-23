@@ -1,32 +1,42 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import "../Event/Event.styles.css"
 import styled from "styled-components"
-import { postApiCall,deleteApiCall } from '../../utils/functions'
+import { postApiCall,deleteApiCall,getApiCall } from '../../utils/functions'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { LoadingBox } from '../../StyledComponents/Components.js'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import userEvent from '@testing-library/user-event'
+import axios from 'axios'
 
 
-const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active,userEvents}) => {
+const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active,userEvents,user,setUser}) => {
 
-
+	
 	const [showLoading,setShowLoading] = useState(false);
 	const [showModal,setShowModal] = useState(false);
 	const [showMore,setShowMore] = useState(false);
+	const [joined,setJoined] = useState(false);
+  const [joinedEvents,setJoinedEvents] = useState([]);
   
   const navigate = useNavigate();
 
-  const handleJoinEvent = async () => {
-    postApiCall(`https://eventfuloflies.herokuapp.com/joinEvent`,{eventID})
-    .then((res) => {
-      console.log(res)
-    })
-  }
+  
+  useEffect(() => {
+    getJoinedEvents();
+    setJoined(checkJoinStatus(joinedEvents))
+    
+  },[])
+
+	useEffect(() => {
+    
+		setJoined(checkJoinStatus(joinedEvents));
+    
+	},[joinedEvents])
+	
 
   const ViewStyle = {
     color:'white',
@@ -45,18 +55,72 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
     })
   }
 
-  const handleHover = () => {
-    setShowModal(true);
-  }
+  
 
   const handleLeave = () => {
-    setShowModal(false);
+    postApiCall(`${process.env.REACT_APP_HOST_URL}/event/${eventID}`)
+    .then((res) => {
+      setShowLoading(false)
+      deleteEventUpdate(res.events)
+    })
   }
 
   const handleView = () => {
-    navigate("/dashboard/event/1234")
+    navigate(`/dashboard/event/${eventID}`)
   }
 
+  const checkJoinStatus = (array) => {
+    
+    for(let i = 0; i < array.length; i++) {
+      if(array[i]._id === eventID) return true;
+      
+    }
+    return false;
+  
+  }
+
+  const joinEvent = () => {
+    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/join`,{eventID})
+    .then((res) => {
+      return res.json();
+    })
+    .then(res => {
+      setJoinedEvents(res.data.events)
+    })
+    .catch(err => {
+
+    })
+    
+    
+  }
+
+  const leaveEvent = () => {
+    
+    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/leave`,{eventID})
+    .then((res) => {
+      return res.json();
+    })
+    .then(res => {
+      setJoinedEvents(res.data.events)
+    })
+    .catch(err => {
+
+    })
+    
+  }
+
+  const getJoinedEvents = () => {
+      axios.get(`${process.env.REACT_APP_HOST_URL}/api/users/info`,
+      {headers: {"Authorization": `Bearer ${sessionStorage.getItem("token")}`}})
+      .then((res) => {
+        setJoinedEvents(res.data.events);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+	
+  	
   
 
   return (
@@ -66,9 +130,6 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
         	<CircularProgress />
         </LoadingBox>}
 
-        
-        
-        
         <InfoContainer>
           <Title>{name}</Title>
           <Title>Hosted by {host}</Title>
@@ -87,7 +148,9 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
 		
 			<div className={active === eventID && showMore ? 'more-options show-more' : "more-options"}>
 				<button className='more-button' onClick={handleView}>View</button>
-				<button className='more-button'>Leave</button>
+       
+				{joined ? <button className='more-button' onClick={leaveEvent}>Leave</button> : <button className='more-button' onClick={joinEvent}>Join</button>}
+				
         {isOwner && <button className='more-button'>Delete</button>}
 			</div>
         </div>
