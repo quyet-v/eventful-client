@@ -13,6 +13,11 @@
     transform: translateY(5px);
 }
 
+.loading {
+   
+    cursor: not-allowed;
+}
+
 
 
 .more-options {

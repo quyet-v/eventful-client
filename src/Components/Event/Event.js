@@ -11,6 +11,9 @@ import { LoadingBox } from '../../StyledComponents/Components.js'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
 
 
 const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active,userEvents,user,setUser}) => {
@@ -21,7 +24,7 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
 	const [showMore,setShowMore] = useState(false);
 	const [joined,setJoined] = useState(false);
   const [joinedEvents,setJoinedEvents] = useState([]);
-  
+  const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
 
   
@@ -80,12 +83,14 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
   }
 
   const joinEvent = () => {
+    setLoading(true)
     postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/join`,{eventID})
     .then((res) => {
       return res.json();
     })
     .then(res => {
       setJoinedEvents(res.data.events)
+      setLoading(false);
     })
     .catch(err => {
 
@@ -95,13 +100,14 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
   }
 
   const leaveEvent = () => {
-    
+    setLoading(true)
     postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/leave`,{eventID})
     .then((res) => {
       return res.json();
     })
     .then(res => {
       setJoinedEvents(res.data.events)
+      setLoading(false);
     })
     .catch(err => {
 
@@ -149,9 +155,10 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
 			<div className={active === eventID && showMore ? 'more-options show-more' : "more-options"}>
 				<button className='more-button' onClick={handleView}>View</button>
        
-				{joined ? <button className='more-button' onClick={leaveEvent}>Leave</button> : <button className='more-button' onClick={joinEvent}>Join</button>}
+				{joined ? <button disabled={loading ? true : false} className='more-button' onClick={leaveEvent} >{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Leave" }</button> :
+        <button disabled={loading ? true : false} className='more-button' onClick={joinEvent}>{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Join" }</button>}
 				
-        {isOwner && <button className='more-button'>Delete</button>}
+        {isOwner && <button className='more-button'>Delete <DeleteIcon></DeleteIcon></button>}
 			</div>
         </div>
 
