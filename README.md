@@ -8,7 +8,7 @@ Eventful facilitates this by providing a platform that allows users to host and 
 ## Deployment
 
 Front-end deployed with Netlify
-https://eventfuloflies.netlify.app/
+https://eventful-prod.netlify.app/
 
 Back-end deployed with Heroku
 https://eventfuloflies.herokuapp.com/
