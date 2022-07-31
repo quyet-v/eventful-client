@@ -11,7 +11,7 @@ Front-end deployed with Netlify
 https://eventful-prod.netlify.app/
 
 Back-end deployed with Heroku
-https://eventfuloflies.herokuapp.com/
+https://eventful-backend.herokuapp.com/
 
 ## Technologies
 
