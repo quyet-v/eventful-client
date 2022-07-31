@@ -13,6 +13,8 @@ https://eventful-prod.netlify.app/
 Back-end deployed with Heroku
 https://eventful-backend.herokuapp.com/
 
+we are cool
+
 ## Technologies
 
 Built with
