@@ -1,0 +1,98 @@
+
+
+
+.search-input {
+    display: inline-block;
+    width: 300px;
+    height: 40px;
+    
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 10px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    
+    border-radius: 20px;
+}
+
+.search-icon {
+    margin-left: 5px;
+}
+
+.options {
+    
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.friends,.profile {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    
+}
+
+.profile {
+    transform: scale(1.5);
+}
+
+.profile-container {
+   
+    position: relative;
+  
+   
+   
+}
+
+
+.profile-options {
+    background-color: white;
+    width: 300px;
+    height:300px;
+    position: absolute;
+    right: 0;
+    border: 1px solid grey;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    z-index: 100;
+    margin-top: 3px;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.show-options {
+    visibility: visible;
+    opacity: 1;
+}
+
+.profile-option {
+    display: flex;
+    align-items: center;
+   
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.profile-option:hover {
+    background-color: rgb(242, 242, 242);
+    
+}
+
+.profile-option > * {
+    margin-right: 10px;
+}
