@@ -1,0 +1,101 @@
+* {
+    padding: 0;
+    margin: 0;
+    
+}
+
+body {
+    height: 100vh;
+    
+}
+
+.user-logo {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto;
+}
+
+.user-info {
+    display: inline-block;
+}
+
+
+
+.hud-container {
+    
+    background: -webkit-linear-gradient(to top, #3f2b96, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #3f2b96, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+    padding: 20px;
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 4px;
+    border: 2px solid black;
+    
+}
+
+.logout-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0px;
+    margin-right: 20px;
+    width: 100px;
+}
+
+.menu-container {
+    background-color: white;
+    border-right: 2px solid black;
+    padding: 15px;
+    width: 40vw;
+    min-width: 290px;
+    max-width:500px;
+    min-height: 100vh;
+    
+    
+}
+
+.dashboard-menu-btn {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 90%;
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all .5s;
+    height: 40px;
+    line-height: 20px;
+
+    
+    
+}
+
+.dashboard-menu-btn:hover {
+    transform: translateY(-5px);
+}
+
+.links {
+    height: 50%;
+    
+    min-height: 300px;
+
+}
+
+.user-info {
+    background-color: rgba(0, 0, 0, .5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.username {
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+}

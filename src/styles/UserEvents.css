@@ -1,0 +1,41 @@
+
+.events-container {
+    position: relative;
+    background: -webkit-linear-gradient(to top, #ad5389, #3c1053); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #ad5389, #3c1053);
+    
+}
+
+
+
+.events-container-outline {
+    background-color: white;
+    border: 2px solid black;
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top:0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+    overflow: scroll;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    gap: 20px;
+    scrollbar-width: none;
+    
+    
+}
+
+.events-container-outline:-webkit-scrollbar {
+    display:none;
+}
+
+
+
+
+
