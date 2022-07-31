@@ -126,7 +126,15 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
       })
   }
 	
-  	
+  	const sendMail = () => {
+		axios.post(`${process.env.REACT_APP_HOST_URL}/api/email/send`)
+		.then((res) => {
+
+		})
+		.catch(err => {
+
+		})
+	}
   
 
   return (
@@ -154,11 +162,14 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
 		
 			<div className={active === eventID && showMore ? 'more-options show-more' : "more-options"}>
 				<button className='more-button' onClick={handleView}>View</button>
-       
+				<button onClick={sendMail}>Send Mail</button>
 				{joined ? <button disabled={loading ? true : false} className='more-button' onClick={leaveEvent} >{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Leave" }</button> :
-        <button disabled={loading ? true : false} className='more-button' onClick={joinEvent}>{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Join" }</button>}
+        		<button disabled={loading ? true : false} className='more-button' onClick={joinEvent}>{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Join" }</button>
+				}
+
 				
-        {isOwner && <button className='more-button'>Delete <DeleteIcon></DeleteIcon></button>}
+				
+        		{isOwner && <button className='more-button'>Delete <DeleteIcon></DeleteIcon></button>}
 			</div>
         </div>
 
