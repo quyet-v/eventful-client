@@ -23,7 +23,7 @@ const Login = ({showLoading}) => {
             loading(true);
             e.preventDefault();
             
-            postApiCall("http://localhost:4000/api/auth/login",{
+            postApiCall(`${process.env.REACT_APP_HOST_URL}api/auth/login`,{
                 username: username,
                 password: password
             })
