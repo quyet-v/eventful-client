@@ -19,7 +19,7 @@ const Signup = () => {
                 password: password
             }
 
-            postApiCall(`${process.env.REACT_APP_HOST_URL}api/auth/signup`,userSignupInfo)
+            postApiCall(`${process.env.REACT_APP_HOST_URL}/api/auth/signup`,userSignupInfo)
             .then(res => {
                 if(res.status === 200) {
                     return res.json();
