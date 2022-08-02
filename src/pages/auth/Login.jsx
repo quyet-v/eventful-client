@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import styled from "styled-components"
-import "../../Styles/style.css"
+import "../../styles/style.css"
 import { NavLink,useNavigate } from 'react-router-dom'
 import CenteredContainer from '../../components/CenteredContainer/CenteredContainer'
 import AuthForm from '../../components/AuthForm/AuthForm'

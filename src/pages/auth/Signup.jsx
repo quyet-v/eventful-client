@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
-import "../../Styles/style.css"
+import "../../styles/style.css"
 import { NavLink,useNavigate } from 'react-router-dom'
 import AuthForm from '../../components/AuthForm/AuthForm'
 import { postApiCall } from '../../utils/functions'

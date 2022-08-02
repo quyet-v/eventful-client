@@ -39,11 +39,6 @@ const Events = () => {
 			setShowLoading(false)
 			setChosenEvents(res.events)
 		})
-
-
-
-
-
 	}, [])
 
   const handleSelect = (e) => {
@@ -56,12 +51,10 @@ const Events = () => {
 
   const checkOwner = (event) => {
 	for(let i = 0; i < userEvents.length; i++) {
-		
 		if(userEvents[i]._id === event) {
 			return true;
 		}
 	}
-
 	return false;
   }
    
@@ -69,9 +62,6 @@ const Events = () => {
     <Wrapper onClick={(e) => {
       setIsActive(null)
     }}>
-      
-		
-		
 		<EventContainer className={!showLoading && "show-loading-finished"}>
 			{!showLoading && <div className='event-filters'>
 				
@@ -85,11 +75,13 @@ const Events = () => {
 			
 			<div className='events'>
 				{chosenEvents.map((event) => {
-					
+					console.log(event)
 					return <Event key={chosenEvents.indexOf(event)} 
 						eventID={event._id} 
 						name={event.name} 
 						host={event.host}
+						date={event.date}
+						time={event.time}
 						img={`data:image/png;base64,${Buffer.from(event.img.data).toString("base64")}`}
 						setIsActive={setIsActive}
 						active={isActive}

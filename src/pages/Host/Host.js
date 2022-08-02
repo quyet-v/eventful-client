@@ -4,14 +4,13 @@ import Dashboard from '../../components/Dashboard/Dashboard'
 import { postApiCall } from '../../utils/functions'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import {Button as HostButton, LoadingBox} from "../../StyledComponents/Components.js"
+import {Button as HostButton, LoadingBox} from "../../styledcomponents/Components.js"
 import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Host = () => {
     
     let autocomplete;
-   
 
     // useEffect(() => {
     //     loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCg1mB3Pz7A1lLtnywFZkq6CLrzeEcoCqc&libraries=places",handleLoadScript);
@@ -76,7 +75,6 @@ const Host = () => {
                     setCharRemaining(charRemaining - 1)
                 }
                 
-                
                 break
 
             case "event-date":
@@ -85,6 +83,7 @@ const Host = () => {
 
             case "event-time":
                 setTime(e.target.value)
+                console.log(e.target.value)
                 break
 
             case "event-location":

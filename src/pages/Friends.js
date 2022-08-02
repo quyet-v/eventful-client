@@ -1,5 +1,5 @@
 import React, { useEffect,useRef,useState } from 'react'
-import "../Styles/Friends.css"
+import "../styles/Friends.css"
 import styled from "styled-components"
 import {io} from "socket.io-client"
 import { getApiCall } from '../utils/functions'

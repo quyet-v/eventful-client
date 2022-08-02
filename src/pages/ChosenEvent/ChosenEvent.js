@@ -4,6 +4,7 @@ import "../ChosenEvent/ChosenEvent.styles.css"
 import { getApiCall } from '../../utils/functions'
 import { Buffer } from 'buffer'
 import Attendee from '../../components/Attendee/Attendee'
+import axios from 'axios'
 
 const ChosenEvent = () => {
 

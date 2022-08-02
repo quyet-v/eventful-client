@@ -7,7 +7,7 @@ import { postApiCall,deleteApiCall,getApiCall } from '../../utils/functions'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { LoadingBox } from '../../StyledComponents/Components.js'
+import { LoadingBox } from '../../styledcomponents/Components.js'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
@@ -16,7 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
-const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active,userEvents,user,setUser}) => {
+const Event = ({name,time,date,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active,userEvents,user,setUser}) => {
 
 	
 	const [showLoading,setShowLoading] = useState(false);
@@ -58,8 +58,6 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
     })
   }
 
-  
-
   const handleLeave = () => {
     postApiCall(`${process.env.REACT_APP_HOST_URL}/event/${eventID}`)
     .then((res) => {
@@ -95,8 +93,6 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
     .catch(err => {
 
     })
-    
-    
   }
 
   const leaveEvent = () => {
@@ -116,18 +112,21 @@ const Event = ({name,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,acti
   }
 
   const getJoinedEvents = () => {
-      axios.get(`${process.env.REACT_APP_HOST_URL}/api/users/info`,
-      {headers: {"Authorization": `Bearer ${sessionStorage.getItem("token")}`}})
-      .then((res) => {
-        setJoinedEvents(res.data.events);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+	axios.get(`${process.env.REACT_APP_HOST_URL}/api/users/info`,
+	{headers: {"Authorization": `Bearer ${sessionStorage.getItem("token")}`}}
+	)
+	.then((res) => {
+		setJoinedEvents(res.data.events);
+	})
+	.catch((error) => {
+		console.log(error);
+		console.log("hi")
+	})
   }
 	
   	const sendMail = () => {
-		axios.post(`${process.env.REACT_APP_HOST_URL}/api/email/send`)
+		axios.post(`${process.env.REACT_APP_HOST_URL}/api/email/send`,
+		{data: {date: date, time: time}})
 		.then((res) => {
 
 		})
