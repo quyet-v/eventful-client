@@ -112,7 +112,7 @@ const Host = () => {
 
             if(hostApiCall) {
                 console.log(hostApiCall)
-                navigate(`/dashboard/events`)
+                navigate(`/dashboard/myevents`)
             }
         }
     }
