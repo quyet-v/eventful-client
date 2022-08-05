@@ -40,7 +40,6 @@ const Login = ({showLoading}) => {
             .then(res => {
                 if(res) {
                     sessionStorage.setItem("token",res.token);
-                
                     navigate("/dashboard");
                 }
             })
