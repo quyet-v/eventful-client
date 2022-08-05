@@ -29,7 +29,7 @@ const Events = () => {
 			setUserEvents(res.events)
 		})
 
-		getApiCall("http://localhost:4000/api/events/all")
+		getApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/all`)
 		.then((res) => {
 			
 			return res.json();
