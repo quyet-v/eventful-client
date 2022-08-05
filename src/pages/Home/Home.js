@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavBar from "../../components/NavBar/NavBar"
 import styled from 'styled-components'
 import background from "../../assets/images/herologo2.png"
@@ -12,6 +12,8 @@ import Presents from "../../assets/images/Presents.svg"
 const Home = () => {
 	const [openLogin,setOpenLogin] = useState(false);
 	const presentImg = useRef(null);
+
+  
 
   return (
     <Wrapper>
