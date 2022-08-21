@@ -1,26 +1,24 @@
 import React,{useEffect, useRef, useState} from 'react'
 import { NavLink } from 'react-router-dom'
 import "../../components/NavigationItem/NavigationItem.styles.css"
+import Tooltip from '@mui/material/Tooltip';
 
-const NavigationItem = ({link,logo,info,active}) => {
+const NavigationItem = ({link,logo,info}) => {
     
     const [showInfo,setShowInfo] = useState(false);
-   
-  
-
-    const handleItemHover = () => {
-        setShowInfo(true)
-    }
-
-    const handleClick = () => {
-
-    }
     
     return (
-        <div className={ 'item-info-container'} onClick={handleClick} onMouseEnter={handleItemHover} onMouseLeave={() => setShowInfo(false)}>
-            <NavLink className={"item-logo"} to={link}>{logo}</NavLink>
-            <div className={showInfo ? 'item-info show-info' : 'item-info'}>{info}</div>
-        </div>
+        <Tooltip title={info} arrow>
+            <NavLink 
+                style={
+                    {
+                        textAlign: "center",
+                        width: 100
+                    }
+                } 
+            to={link}>{logo}
+            </NavLink>
+        </Tooltip>
     )
 }
 

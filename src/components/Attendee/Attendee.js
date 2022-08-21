@@ -3,7 +3,7 @@ import "../Attendee/Attendee.styles.css"
 
 const Attendee = ({username}) => {
   return (
-    <div>
+    <div data-testid="attendee-container">
       {username}
       <button>Message</button>
 

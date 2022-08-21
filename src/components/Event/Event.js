@@ -1,26 +1,20 @@
-
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import "../Event/Event.styles.css"
 import styled from "styled-components"
 import { postApiCall,deleteApiCall,getApiCall } from '../../utils/functions'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 import { LoadingBox } from '../../styledcomponents/Components.js'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import userEvent from '@testing-library/user-event'
 import axios from 'axios'
 import DeleteIcon from '@mui/icons-material/Delete';
-
-
-
+import Tooltip from '@mui/material/Tooltip';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 const Event = ({name,time,date,host,eventID,isOwner,deleteEventUpdate,img,setIsActive,active,userEvents,user,setUser}) => {
 
-	
 	const [showLoading,setShowLoading] = useState(false);
-	const [showModal,setShowModal] = useState(false);
+	const [currentlyOpened,setCurrentlyOpened] = useState({});
 	const [showMore,setShowMore] = useState(false);
 	const [joined,setJoined] = useState(false);
   const [joinedEvents,setJoinedEvents] = useState([]);
@@ -31,16 +25,12 @@ const Event = ({name,time,date,host,eventID,isOwner,deleteEventUpdate,img,setIsA
   useEffect(() => {
     getJoinedEvents();
     setJoined(checkJoinStatus(joinedEvents))
-    
   },[])
 
 	useEffect(() => {
-    
 		setJoined(checkJoinStatus(joinedEvents));
-    
 	},[joinedEvents])
 	
-
   const ViewStyle = {
     color:'white',
     backgroundColor:'black',
@@ -71,13 +61,10 @@ const Event = ({name,time,date,host,eventID,isOwner,deleteEventUpdate,img,setIsA
   }
 
   const checkJoinStatus = (array) => {
-    
     for(let i = 0; i < array.length; i++) {
       if(array[i]._id === eventID) return true;
-      
     }
     return false;
-  
   }
 
   const joinEvent = () => {
@@ -124,54 +111,53 @@ const Event = ({name,time,date,host,eventID,isOwner,deleteEventUpdate,img,setIsA
 	})
   }
 	
-  	const sendMail = () => {
-		axios.post(`${process.env.REACT_APP_HOST_URL}/api/email/send`,
-		{data: {date: date, time: time}})
-		.then((res) => {
-
-		})
-		.catch(err => {
-
-		})
-	}
+  const sendMail = () => {
+    axios.post(`${process.env.REACT_APP_HOST_URL}/api/email/send`,
+      {data: {date: date, time: time}}
+    )}
   
-
   return (
     <EventContainer image={img} onClick={(e) => e.stopPropagation()}>
+      {showLoading && <LoadingBox>
+        <CircularProgress />
+      </LoadingBox>}
+
+      <InfoContainer>
+        <Title>{name}</Title>
+        <Title>Hosted by {host}</Title>
+      </InfoContainer>
         
-        {showLoading && <LoadingBox>
-        	<CircularProgress />
-        </LoadingBox>}
-
-        <InfoContainer>
-          <Title>{name}</Title>
-          <Title>Hosted by {host}</Title>
-        </InfoContainer>
-        
-        <div className='more-container'>
-			<ExpandMoreIcon className='more-icon' onClick={() => {
-				if(active != eventID) {
-					setShowMore(true)
-				}else {
-					setShowMore(!showMore)
-				}
-				setIsActive(eventID)
-			
-			}}/>
-		
-			<div className={active === eventID && showMore ? 'more-options show-more' : "more-options"}>
-				<button className='more-button' onClick={handleView}>View</button>
-				<button onClick={sendMail}>Send Mail</button>
-				{joined ? <button disabled={loading ? true : false} className='more-button' onClick={leaveEvent} >{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Leave" }</button> :
-        		<button disabled={loading ? true : false} className='more-button' onClick={joinEvent}>{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Join" }</button>
-				}
-
-				
-				
-        		{isOwner && <button className='more-button'>Delete <DeleteIcon></DeleteIcon></button>}
-			</div>
-        </div>
-
+      <ClickAwayListener onClickAway={() => setShowMore(false)}>
+        <Tooltip 
+          placement='bottom-end'
+          PopperProps={{
+            disablePortal: true,
+          }}
+          arrow
+          disableFocusListener
+          disableHoverListener
+          disableTouchListener
+          open={eventID === active}
+          title={
+            <div style={{display: "flex",flexDirection:"column"}}>
+              <button className='more-button' onClick={handleView}>View</button>
+              <button className='more-button' onClick={sendMail}>Send Mail</button>
+              {joined ? 
+                <button className='more-button' disabled={loading ? true : false} onClick={leaveEvent} >{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Leave" }</button> :
+                <button className='more-button' disabled={loading ? true : false} onClick={joinEvent}>{loading ? <CircularProgress size={"1.5rem"} className="loading" /> : "Join" }</button>
+              }
+              {isOwner && <button className='more-button'>Delete<DeleteIcon></DeleteIcon></button>}
+            </div>
+          }>
+            <ExpandMoreIcon 
+              onClick={() => {
+                setShowMore(true)
+                setIsActive(eventID)
+              }} 
+              className='more-icon'
+            />
+        </Tooltip>
+      </ClickAwayListener>
     </EventContainer>
   )
 }

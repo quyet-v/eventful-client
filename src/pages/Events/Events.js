@@ -8,6 +8,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { Buffer } from 'buffer'
 import { useOutletContext } from 'react-router-dom'
+import Tooltip from '@mui/material/Tooltip';
+
 
 const Events = () => {
 	const [user,setUser] = useOutletContext();
@@ -74,7 +76,6 @@ const Events = () => {
 			
 			<div className='events'>
 				{chosenEvents.map((event) => {
-					console.log(event)
 					return <Event key={chosenEvents.indexOf(event)} 
 						eventID={event._id} 
 						name={event.name} 
@@ -88,7 +89,6 @@ const Events = () => {
 						user={user}
 						setUser={setUser}
 						>
-					
 					</Event>
 				})
 				
@@ -101,8 +101,6 @@ const Events = () => {
 			</LoadingBox>
 		}
 		</EventContainer>
-
-      
     </Wrapper>
   )
 }
