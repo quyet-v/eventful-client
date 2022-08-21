@@ -7,13 +7,21 @@ import Image from "../../assets/images/Image(1).svg"
 import Arrow from "../../assets/images/Arrow 1.svg"
 import Login from '../auth/Login'
 import Presents from "../../assets/images/Presents.svg"
-
+import { isAuthenticated } from '../../utils/functions'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
 	const [openLogin,setOpenLogin] = useState(false);
 	const presentImg = useRef(null);
+  const navigate = useNavigate();
 
-  
+
+  useEffect(() => {
+    isAuthenticated()
+    .then(res => {
+      navigate("/dashboard/events")
+    })
+  })
 
   return (
     <Wrapper>

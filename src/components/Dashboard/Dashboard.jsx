@@ -20,7 +20,6 @@ import Navigation from '../Navigation/Navigation';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-
 const Dashboard = () => {
 
 	const [user,setUser] = useState({})
@@ -36,13 +35,9 @@ const Dashboard = () => {
 		.then(res => {
 		  if(res) {
 			setUser(res)
-			
 		  }
 		})
-	
-	
 	  }, [])
-
 
   const nav = useRef(null);
 
@@ -76,6 +71,8 @@ const Dashboard = () => {
 				<Link to="/dashboard/allevents" ><EventNoteSharpIcon /> </Link>
 				<Link to="/dashboard/friends" ><PeopleAltTwoToneIcon /></Link>
 				<Link to="/dashboard/add-friends" ><GroupAddTwoToneIcon /></Link> */}
+				
+				
 				<NavigationItem link={"/dashboard/host"} logo={<AddLocationAltTwoToneIcon />} info={"Host"}></NavigationItem>
 				<NavigationItem link={"/dashboard/events"} logo={<EventNoteSharpIcon />} info={"Events"}></NavigationItem>
 				<NavigationItem link={"/dashboard/friends"} logo={<PeopleAltTwoToneIcon />} info={"Friends"}></NavigationItem>
@@ -85,6 +82,7 @@ const Dashboard = () => {
 			<div className='profile-container'>
 				<button className='profile' onClick={handleProfileClick}><AccountCircleIcon></AccountCircleIcon></button>
 				<div className={showProfile ? 'profile-options show-options' : "profile-options"} onClick={handleProfileOptionsClick}>
+					
 					<button className='profile-option'><AccountCircleIcon/>Profile</button>
 					<button className='profile-option'><SettingsIcon/>Settings</button>
 					<button className='profile-option' onClick={handleLogout}><LogoutIcon/>Logout</button>
