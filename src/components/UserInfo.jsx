@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import UserLogo from "../assets/images/userlogo.png"
-import { getApiCall } from '../utils/functions'
+import React, { useState } from 'react';
+import UserLogo from '../assets/images/userlogo.png';
 
-
-const UserInfo = () => {
-  let [user,setUser] = useState({})
-
- 
- 
-
-  
+function UserInfo() {
+  const [user] = useState({});
 
   return (
-    <div className='user-info'>
-      <img src={UserLogo} alt="" className='user-logo' />
+    <div className="user-info">
+      <img src={UserLogo} alt="" className="user-logo" />
       <p className="username">{user.username}</p>
     </div>
-  )
+  );
 }
 
-export default UserInfo
+export default UserInfo;
