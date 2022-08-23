@@ -1,7 +1,7 @@
 .auth-form {
     width: 100%;
     height: 300px;
-  
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,19 +11,19 @@
 .auth-form-container {
     width: 100%;
     height: 100%;
-  
     text-align: center;
 }
 
 .auth-input,.auth-button {
-    width: 70%;
-    height: 40px;
+    width: 80%;
+    height: 50px;
     font-weight: bold;
     border-radius: 3px;
 }
 
 .auth-input {
     padding: 5px;
+    border: 2px solid black;
 }
 
 .auth-input:focus {
@@ -34,9 +34,13 @@
     background-color: black;
     color: white;
     border: none;
-    
+    transition: all 0.2s;
     font-size: larger;
     cursor: pointer;
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
 }
 
 .redirect {

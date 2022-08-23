@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import '../../styles/style.css';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import AuthForm from '../../components/AuthForm/AuthForm';
@@ -44,7 +43,7 @@ function Login({ showLoading }) {
 
         <AuthForm
           heading="Login"
-          buttonLabel="Login"
+          buttonLabel="Log in"
           redirect="signup"
           redirectMessage="No Account?"
           redirectLinkMessage="Create one"
@@ -64,9 +63,6 @@ const Wrapper = styled.div`
     justify-content:center;
     align-items:center;
     position: absolute;
-  
-
-
 `;
 
 const Button = styled.button`
@@ -91,6 +87,7 @@ const LoginContainer = styled.div`
     width:400px;
     height:400px;
     background-color:white;
+    border-radius: 10px;
     display:flex;
     flex-direction:column;
     padding-top:50px;

@@ -23,21 +23,23 @@ function Home() {
       {openLogin && <Login showLoading={setOpenLogin} />}
 
       <NavBar showLoading={setOpenLogin} />
-      <div className="hero">
-        <Hero>
-          <Title>Bring your events to life</Title>
-          <Title>with |Eclipse|</Title>
-          <PartyImg src={Presents} />
-        </Hero>
+      <div className="hero-container">
+        <div className="hero">
+          <Hero>
+            <Title>Bring your events to life</Title>
+            <Title>with Eclipse</Title>
+            <PartyImg src={Presents} />
+          </Hero>
 
-        <div className="signup">
-          <form className="signup-form">
-            <input type="text" placeholder="Email" className="signup-input" />
-            <input type="text" placeholder="Username" className="signup-input" />
-            <input type="password" placeholder="Password" className="signup-input" />
-            <button type="submit" className="signup-button">Signup</button>
-          </form>
+          <div className="signup">
+            <form className="signup-form">
+              <input type="text" placeholder="Email" className="signup-input" />
+              <input type="text" placeholder="Username" className="signup-input" />
+              <input type="password" placeholder="Password" className="signup-input" />
+              <button type="submit" className="signup-button">Signup</button>
+            </form>
 
+          </div>
         </div>
       </div>
 
@@ -48,12 +50,9 @@ function Home() {
 const Hero = styled.div`
   display: flex;
   flex-direction:column;
-  background:white;
-  
   border-radius:10px;
   padding:10px;
-  width:700px;
-  height:600px;
+  
 `;
 const Title = styled.h1`
   font-family: 'Kumar One', cursive;
@@ -62,20 +61,16 @@ const Title = styled.h1`
 `;
 
 const PartyImg = styled.img`
-  
-  height:400px;
-  
   filter:drop-shadow(13px 13px 10px rgba(0,0,0,0.2));
   display:block;
-  
 `;
 
 const Wrapper = styled.div`
   
   display:flex;
   flex-direction:column;
-  width:100vw;
-  height:100vh;
+  width:100%;
+  height:100%;
   
 `;
 

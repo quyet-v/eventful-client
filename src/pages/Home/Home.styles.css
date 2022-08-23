@@ -10,14 +10,10 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-grow: 1;
-    
-    
 }
 
 .images {
-    
     display: flex;
-
 }
 
 .signup {
@@ -29,13 +25,11 @@ body {
     display: flex;
     justify-content: center;
     padding: 40px;
-
 }
 
 .signup-input {
     width: 100%;
     height: 61px;
-    
     color: black;
     padding: 10px;
     transition: all 0.2s;
@@ -50,7 +44,6 @@ body {
 
 .signup-form {
     width: 100%;
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -63,7 +56,6 @@ body {
     height: 61px;
     transition: all 0.2s;
     cursor: pointer;
-
 }
 
 .signup-button:hover {
@@ -75,7 +67,6 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 15px;
-    
 }
 
 @keyframes slide {
@@ -85,8 +76,6 @@ body {
 
 .present-image {
     height:100px;
-  
-  
     display:block;
     cursor: pointer;
     transition: all 0.2s;
@@ -102,3 +91,6 @@ body {
     animation: slide 0.7s;
 }
 
+.hero-container {
+    flex-grow: 1;
+}
