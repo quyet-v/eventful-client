@@ -3,7 +3,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef, useState } from 'react';
-import '../styles/Friends.css';
 import styled from 'styled-components';
 import { io } from 'socket.io-client';
 

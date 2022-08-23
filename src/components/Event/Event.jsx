@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './Event.styles.css';
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,18 +14,18 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { postApiCall } from '../../utils/functions';
 
 function Event({
-  name,
-  host,
-  eventID,
+  event,
+  id,
   isOwner,
   img,
   setIsActive,
   active,
+  setViewingEvent,
 }) {
   const [joined, setJoined] = useState(false);
   const [joinedEvents, setJoinedEvents] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const handleDelete = () => {
   //   setShowLoading(true);
@@ -44,20 +44,20 @@ function Event({
   //     });
   // };
 
-  const handleView = () => {
-    navigate(`/dashboard/event/${eventID}`);
-  };
+  // const handleView = () => {
+  //   navigate(`/dashboard/event/${id}`);
+  // };
 
   const checkJoinStatus = (array) => {
     for (let i = 0; i < array.length; i++) {
-      if (array[i]._id === eventID) return true;
+      if (array[i]._id === id) return true;
     }
     return false;
   };
 
   const joinEvent = () => {
     setLoading(true);
-    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/join`, { eventID })
+    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/join`, { id })
       .then((res) => res.json())
       .then((res) => {
         setJoinedEvents(res.data.events);
@@ -69,7 +69,7 @@ function Event({
 
   const leaveEvent = () => {
     setLoading(true);
-    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/leave`, { eventID })
+    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/leave`, { id })
       .then((res) => res.json())
       .then((res) => {
         setJoinedEvents(res.data.events);
@@ -112,10 +112,10 @@ function Event({
     <EventContainer image={img} onClick={(e) => e.stopPropagation()}>
 
       <InfoContainer>
-        <p>{name}</p>
+        <p>{event.name}</p>
         <p>
           Hosted by
-          {host}
+          {event.host}
         </p>
       </InfoContainer>
 
@@ -129,13 +129,16 @@ function Event({
           disableFocusListener
           disableHoverListener
           disableTouchListener
-          open={eventID === active}
+          open={id === active}
           title={(
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <button
                 type="button"
                 className="more-button"
-                onClick={handleView}
+                onClick={() => {
+                  setViewingEvent(event);
+                  setIsActive(null);
+                }}
               >
                 View
               </button>
@@ -175,7 +178,8 @@ function Event({
         >
           <ExpandMoreIcon
             onClick={() => {
-              setIsActive(eventID);
+              console.log(active);
+              setIsActive(id);
             }}
             className="more-icon"
           />
@@ -187,17 +191,13 @@ function Event({
 
 const EventContainer = styled.div`
   background-image: url(${(props) => props.image});
-  width:150px;
-  height:150px;
   background-size: 100% 100%;
   background-repeat:no-repeat;
   border-radius:5px;
   background-position:center;
   position:relative;
+  background-color:green;
   
-  > div {
-    padding:5px;
-  }
   
   border:2px solid black;
 `;
