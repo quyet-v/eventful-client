@@ -1,14 +1,12 @@
-import React from 'react'
-import "../CenteredContainer/CenteredContainer.styles.css"
+import React from 'react';
+import './CenteredContainer.styles.css';
 
-const CenteredContainer = () => {
+function CenteredContainer() {
   return (
-    <div className='centered-container-body'>
-        <div className='centered-container'>
-            
-        </div>
+    <div className="centered-container-body">
+      <div className="centered-container" />
     </div>
-  )
+  );
 }
 
-export default CenteredContainer
+export default CenteredContainer;
