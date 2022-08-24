@@ -101,15 +101,14 @@ const Wrapper = styled.div`
 	flex-direction:column;
 	height:100vh;
 	overflow-x:hidden;
-
-
+  background-color: grey;
 `;
 
 const DashboardContainer = styled.div`
-    
 	background-color: #E1E1E1;
 	width: 100%;
 	height:60px;
+  padding: 20px;
 	display:flex;
 	align-items:center;
   justify-content:space-between;

@@ -178,7 +178,6 @@ function Event({
         >
           <ExpandMoreIcon
             onClick={() => {
-              console.log(active);
               setIsActive(id);
             }}
             className="more-icon"
