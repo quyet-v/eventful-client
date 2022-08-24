@@ -1,23 +1,16 @@
-<<<<<<< HEAD
 /* eslint-disable no-unused-vars */
-=======
->>>>>>> dev
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import './AuthForm.styles.css';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function AuthForm({
-<<<<<<< HEAD
   buttonLabel,
   redirect,
   redirectMessage,
   redirectLinkMessage,
   isSignup,
   apiType,
-=======
-  buttonLabel, isSignup, apiType,
->>>>>>> dev
 }) {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
