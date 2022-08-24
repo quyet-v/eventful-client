@@ -52,9 +52,7 @@ function AuthForm({
         >
           {showLoading && <CircularProgress size="30px" />}
           {!showLoading && buttonLabel}
-
         </button>
-
       </form>
     </div>
   );
