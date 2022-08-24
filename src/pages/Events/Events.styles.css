@@ -35,20 +35,21 @@
 
 .grid-wrapper {
     background-color:#2a2d34;
-    position:relative;
+    
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
     grid-auto-rows: 150px;
     gap: 20px;
     padding:20px;
-    flex: 1;
+    flex-grow: 1;
     height: 100%;
     overflow-y: scroll;
 }
 
-.wrapper {
+.events-wrapper {
     display: flex;
     flex-grow: 1;
+    
     overflow-y: hidden;
 }
 
