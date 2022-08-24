@@ -22,7 +22,6 @@
 .events-container {
     flex-grow: 1;
     background-color: green;
-    
 }
 
 .filter-options {
@@ -35,7 +34,6 @@
 
 .grid-wrapper {
     background-color:#2a2d34;
-    
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
     grid-auto-rows: 150px;
@@ -49,14 +47,30 @@
 .events-wrapper {
     display: flex;
     flex-grow: 1;
-    
     overflow-y: hidden;
 }
 
 .chosen-event {
-    background-color: green;
+    background-color: white;
+
 }
 
 .flex-grow {
     flex-grow: 1;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all .2s;
+    position: absolute;
+    right: 0;
+    margin: 6px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.close-button:hover {
+    background-color: #d9d9d9;
 }

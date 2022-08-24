@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-unused-vars */
@@ -7,7 +8,7 @@
 import React, { useState, useEffect } from 'react';
 import './Events.styles.css';
 import styled from 'styled-components';
-
+import CloseIcon from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Buffer } from 'buffer';
 import { useOutletContext } from 'react-router-dom';
@@ -86,7 +87,13 @@ function Events() {
       </div>
       {viewingEvent != null ? (
         <div className={viewingEvent ? 'chosen-event flex-grow' : null}>
-          <button onClick={() => setViewingEvent(null)} type="button">X</button>
+          <button
+            className="close-button"
+            onClick={() => setViewingEvent(null)}
+            type="button"
+          >
+            <CloseIcon />
+          </button>
         </div>
       ) : null}
     </div>
