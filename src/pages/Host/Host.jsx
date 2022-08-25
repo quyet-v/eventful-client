@@ -83,25 +83,20 @@ function Host() {
       img: imgSrc,
     };
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
     };
 
-    const hostApiCall = axios.post(
-      `${process.env.REACT_APP_HOST_URL}/api/events/create`,
-      hostInfo,
-      headers,
-    ).then((res) => {
-      console.log(res);
-    })
+    axios.post(`${process.env.REACT_APP_HOST_URL}/api/events/create`, hostInfo, config)
+      .then((res) => {
+        navigate('/dashboard/events');
+      })
       .catch((err) => {
-        throw new Error(err);
+        console.log(err);
       });
-
-    if (hostApiCall) {
-      navigate('/dashboard/events');
-    }
   };
 
   const handleFile = (e) => {
@@ -126,26 +121,6 @@ function Host() {
         </div>
 
         <div className="input-block">
-          {/* <div className="description-titles">
-            <label htmlFor="event-desc">
-              Event Description
-              <input
-                id="event-desc"
-                type="text"
-                required
-                maxLength="25"
-                className="event-input event-description"
-                onKeyDown={(event) => setKeyPress(event.key)}
-                onChange={handleInputs}
-              />
-            </label>
-            <span className="max-char-display">
-              (
-              {charRemaining}
-              {' '}
-              chars remaining)
-            </span>
-          </div> */}
           <TextField
             id="event-name-id"
             label="Event Description"
@@ -158,16 +133,6 @@ function Host() {
         </div>
 
         <div className="input-block">
-          {/* <label htmlFor="event-date">
-            Event Date
-            <input
-              id="event-date"
-              type="date"
-              required
-              className="event-input event-date"
-              onChange={handleInputs}
-            />
-          </label> */}
           <TextField
             id="event-name-id"
             type="date"
@@ -180,14 +145,6 @@ function Host() {
         </div>
 
         <div className="input-block">
-          {/* <label htmlFor="event-time">
-            Event Time
-            <input
-            type="time"
-            required id="event-time"
-            className="event-input event-time"
-            onChange={handleInputs} />
-          </label> */}
           <TextField
             id="event-name-id"
             type="time"
@@ -200,16 +157,6 @@ function Host() {
         </div>
 
         <div className="input-block">
-          {/* <label htmlFor="autocomplete">
-            Event Location
-            <input
-            type="text"
-            id="autocomplete"
-            required
-            className="event-input event-location"
-            onChange={handleInputs}
-            />
-          </label> */}
           <TextField
             id="event-location-id"
             type="text"
@@ -219,16 +166,6 @@ function Host() {
             onChange={handleInputs}
           />
         </div>
-
-        {/* <button
-          type="submit"
-          onClick={handleClick}
-        >
-          {!showLoading && 'Host'}
-          {showLoading && (
-            <CircularProgress size="20px" />
-          )}
-        </button> */}
 
         <Button
           type="submit"

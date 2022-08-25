@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
@@ -21,20 +22,13 @@ function Event({
   setIsActive,
   active,
   setViewingEvent,
+  setOpen,
+  setEventDelete,
 }) {
   const [joined, setJoined] = useState(false);
   const [joinedEvents, setJoinedEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   // const navigate = useNavigate();
-
-  // const handleDelete = () => {
-  //   setShowLoading(true);
-  //   deleteApiCall(`https://eventfuloflies.herokuapp.com/event/${eventID}`)
-  //     .then((res) => {
-  //       setShowLoading(false);
-  //       deleteEventUpdate(res.events);
-  //     });
-  // };
 
   // const handleLeave = () => {
   //   postApiCall(`${process.env.REACT_APP_HOST_URL}/event/${eventID}`)
@@ -114,8 +108,7 @@ function Event({
         <InfoContainer>
           <h3>{event.name}</h3>
           <p>
-            Hosted by
-            {event.host}
+            Hosted by {event.host}
           </p>
         </InfoContainer>
 
@@ -168,7 +161,14 @@ function Event({
                   )}
 
                 {isOwner && (
-                <button type="button" className="more-button">
+                <button
+                  type="button"
+                  className="more-button"
+                  onClick={() => {
+                    setEventDelete(id);
+                    setOpen(true);
+                  }}
+                >
                   Delete
                   <DeleteIcon />
                 </button>
@@ -199,6 +199,7 @@ const EventContainer = styled.div`
   position:relative;
   background-color:green;
   border:4px solid black;
+  aspect-ratio: 1/1;
 `;
 
 const InfoContainer = styled.div`

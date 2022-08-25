@@ -94,7 +94,6 @@ const LoginContainer = styled.div`
     align-items:center;
     z-index:100;
     position:relative;
-    
 `;
 
 export default Login;

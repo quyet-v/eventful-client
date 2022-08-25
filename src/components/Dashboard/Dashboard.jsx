@@ -56,23 +56,25 @@ function Dashboard() {
         </div>
 
         <Navigation>
-
-          {/* <Link to="/dashboard/host" className={"active"}><AddLocationAltTwoToneIcon /></Link>
-<Link to={`/dashboard/myevents`} ><CalendarTodaySharpIcon /> </Link>
-<Link to="/dashboard/allevents" ><EventNoteSharpIcon /> </Link>
-<Link to="/dashboard/friends" ><PeopleAltTwoToneIcon /></Link>
-<Link to="/dashboard/add-friends" ><GroupAddTwoToneIcon /></Link> */}
-
           <NavigationItem link="/dashboard/host" logo={<AddLocationAltTwoToneIcon />} info="Host" />
           <NavigationItem link="/dashboard/events" logo={<EventNoteSharpIcon />} info="Events" />
           <NavigationItem link="/dashboard/friends" logo={<PeopleAltTwoToneIcon />} info="Friends" />
-
         </Navigation>
 
         <div className="profile-container">
-          <button type="button" className="profile" onClick={handleProfileClick}><AccountCircleIcon /></button>
-          <div className={showProfile ? 'profile-options show-options' : 'profile-options'} onClick={handleProfileOptionsClick}>
+          <button
+            type="button"
+            className="profile"
+            onClick={handleProfileClick}
+          >
+            <AccountCircleIcon />
+          </button>
 
+          <div
+            className={showProfile ? 'profile-options show-options' : 'profile-options'}
+            onClick={handleProfileOptionsClick}
+          >
+            <h3>{user.username}</h3>
             <button type="button" className="profile-option">
               <AccountCircleIcon />
               Profile
@@ -85,10 +87,8 @@ function Dashboard() {
               <LogoutIcon />
               Logout
             </button>
-
           </div>
         </div>
-
       </DashboardContainer>
 
       <Outlet context={[user, setUser]} />
