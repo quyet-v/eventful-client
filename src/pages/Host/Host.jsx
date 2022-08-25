@@ -36,7 +36,6 @@ function Host() {
   const fileReader = new FileReader();
   const navigate = useNavigate();
   const [showLoading, setShowLoading] = useState(false);
-
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -112,7 +111,7 @@ function Host() {
       <div className="text-input">
         <div className="input-block">
           <TextField
-            id="event-name-id input"
+            id="event-name"
             label="Event Name"
             variant="filled"
             onChange={handleInputs}
@@ -122,7 +121,7 @@ function Host() {
 
         <div className="input-block">
           <TextField
-            id="event-name-id"
+            id="event-description"
             label="Event Description"
             variant="filled"
             multiline
@@ -134,11 +133,11 @@ function Host() {
 
         <div className="input-block">
           <TextField
-            id="event-name-id"
+            id="event-date"
             type="date"
             required
             InputLabelProps={{ shrink: true }}
-            label="Event Name"
+            label="Event Date"
             variant="filled"
             onChange={handleInputs}
           />
@@ -146,7 +145,7 @@ function Host() {
 
         <div className="input-block">
           <TextField
-            id="event-name-id"
+            id="event-time"
             type="time"
             InputLabelProps={{ shrink: true }}
             label="Event Time"
@@ -158,7 +157,7 @@ function Host() {
 
         <div className="input-block">
           <TextField
-            id="event-location-id"
+            id="event-location"
             type="text"
             label="Event Location"
             variant="filled"
