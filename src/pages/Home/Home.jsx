@@ -13,6 +13,7 @@ function Home() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [pword, setPword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,10 +33,15 @@ function Home() {
     e.preventDefault();
     axios.post(`${process.env.REACT_APP_HOST_URL}/api/auth/signup`, data)
       .then((res) => {
-        console.log(res);
+        // navigate('/dashboard/events');
+        sessionStorage.setItem('token', res.data.token);
+        navigate('/dashboard/events');
       })
       .catch((err) => {
-        console.log(err);
+        setError(err);
+        setTimeout(() => {
+          setError(null);
+        }, 2000);
       });
   };
 
@@ -53,6 +59,7 @@ function Home() {
           </Hero>
 
           <div className="signup">
+            {error && <h3 className="error-message">Error while signing up</h3>}
             <form
               className="signup-form"
               onSubmit={handleSignup}
