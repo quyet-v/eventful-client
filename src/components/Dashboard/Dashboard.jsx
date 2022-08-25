@@ -100,8 +100,8 @@ const Wrapper = styled.div`
 	display:flex;
 	flex-direction:column;
 	height:100vh;
-	overflow-x:hidden;
   background-color: grey;
+  overflow-y: hidden;
 `;
 
 const DashboardContainer = styled.div`

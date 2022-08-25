@@ -1,5 +1,4 @@
 
-
 .host {
     background-color: white;
     display: flex;
@@ -16,6 +15,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.input {
+    background-color: white;
 }
 
 .input-block {

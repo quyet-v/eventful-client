@@ -50,27 +50,6 @@
     overflow-y: hidden;
 }
 
-.chosen-event {
-    background-color: white;
-
-}
-
-.flex-grow {
-    flex-grow: 1;
-}
-
-.close-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all .2s;
-    position: absolute;
-    right: 0;
-    margin: 6px;
-    padding: 5px;
-    border-radius: 5px;
-}
-
 .close-button:hover {
     background-color: #d9d9d9;
 }

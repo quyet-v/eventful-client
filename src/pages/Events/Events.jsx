@@ -8,12 +8,12 @@
 import React, { useState, useEffect } from 'react';
 import './Events.styles.css';
 import styled from 'styled-components';
-import CloseIcon from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Buffer } from 'buffer';
 import { useOutletContext } from 'react-router-dom';
 import { getApiCall } from '../../utils/functions';
 import Event from '../../components/Event/Event';
+import EventInfo from '../../components/EventInfo/EventInfo';
 
 function Events() {
   const [user, setUser] = useOutletContext();
@@ -86,15 +86,20 @@ function Events() {
 
       </div>
       {viewingEvent != null ? (
-        <div className={viewingEvent ? 'chosen-event flex-grow' : null}>
-          <button
-            className="close-button"
-            onClick={() => setViewingEvent(null)}
-            type="button"
-          >
-            <CloseIcon />
-          </button>
-        </div>
+      // <div className={viewingEvent ? 'chosen-event flex-grow' : null}>
+      //   <button
+      //     className="close-button"
+      //     onClick={() => setViewingEvent(null)}
+      //     type="button"
+      //   >
+      //     <CloseIcon />
+      //   </button>
+      // </div>
+
+        <EventInfo
+          show={viewingEvent}
+          setShow={setViewingEvent}
+        />
       ) : null}
     </div>
   );

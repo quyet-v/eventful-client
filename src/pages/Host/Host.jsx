@@ -117,9 +117,9 @@ function Host() {
       <div className="text-input">
         <div className="input-block">
           <TextField
-            id="event-name-id"
+            id="event-name-id input"
             label="Event Name"
-            variant="outlined"
+            variant="filled"
             onChange={handleInputs}
             required
           />
@@ -149,7 +149,7 @@ function Host() {
           <TextField
             id="event-name-id"
             label="Event Description"
-            variant="outlined"
+            variant="filled"
             multiline
             required
             maxRows={2}
@@ -174,7 +174,7 @@ function Host() {
             required
             InputLabelProps={{ shrink: true }}
             label="Event Name"
-            variant="outlined"
+            variant="filled"
             onChange={handleInputs}
           />
         </div>
@@ -193,7 +193,7 @@ function Host() {
             type="time"
             InputLabelProps={{ shrink: true }}
             label="Event Time"
-            variant="outlined"
+            variant="filled"
             required
             onChange={handleInputs}
           />
@@ -214,7 +214,7 @@ function Host() {
             id="event-location-id"
             type="text"
             label="Event Location"
-            variant="outlined"
+            variant="filled"
             required
             onChange={handleInputs}
           />
