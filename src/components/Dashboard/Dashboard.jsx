@@ -1,34 +1,36 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-tabs */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
-import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
 import AddLocationAltTwoToneIcon from '@mui/icons-material/AddLocationAltTwoTone';
 import EventNoteSharpIcon from '@mui/icons-material/EventNoteSharp';
 import './Dashboard.styles.css';
 import styled from 'styled-components';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import axios from 'axios';
 import Navigation from '../Navigation/Navigation';
 import NavigationItem from '../NavigationItem/NavigationItem';
-import { getApiCall } from '../../utils/functions';
+import FriendControl from '../../FriendControls/FriendControls';
+import SearchFriends from '../SearchFriends/SearchFriends';
+import { getConfig } from '../../utils/functions';
 
 function Dashboard() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
-    getApiCall(`${process.env.REACT_APP_HOST_URL}/api/users/info`)
-      .then((res) => res.json())
+    axios.get(`${process.env.REACT_APP_HOST_URL}/api/users/info`, getConfig(sessionStorage.getItem('token')))
       .then((res) => {
-        if (res) {
-          setUser(res);
-        }
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -49,32 +51,31 @@ function Dashboard() {
   return (
     <Wrapper onClick={() => setShowProfile(false)}>
       <DashboardContainer>
-
-        <div className="search">
-          <SearchIcon className="search-icon" />
-          <input placeholder="Search for friends" className="search-input" />
-        </div>
+        <SearchFriends user={user} />
 
         <Navigation>
           <NavigationItem link="/dashboard/host" logo={<AddLocationAltTwoToneIcon />} info="Host" />
           <NavigationItem link="/dashboard/events" logo={<EventNoteSharpIcon />} info="Events" />
-          <NavigationItem link="/dashboard/friends" logo={<PeopleAltTwoToneIcon />} info="Friends" />
         </Navigation>
 
         <div className="profile-container">
-          <button
-            type="button"
-            className="profile"
-            onClick={handleProfileClick}
-          >
-            <AccountCircleIcon />
-          </button>
+          <div className="button-container">
+            <FriendControl user={user} />
+
+            <button
+              type="button"
+              className="profile"
+              onClick={handleProfileClick}
+            >
+              <AccountCircleIcon />
+            </button>
+          </div>
 
           <div
             className={showProfile ? 'profile-options show-options' : 'profile-options'}
             onClick={handleProfileOptionsClick}
           >
-            <h3>{user.username}</h3>
+            {user && <h3>{user.username}</h3>}
             <button type="button" className="profile-option">
               <AccountCircleIcon />
               Profile

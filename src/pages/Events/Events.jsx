@@ -14,7 +14,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Buffer } from 'buffer';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
-import { getApiCall } from '../../utils/functions';
+import { getConfig } from '../../utils/functions';
 import Event from '../../components/Event/Event';
 import EventInfo from '../../components/EventInfo/EventInfo';
 
@@ -30,18 +30,14 @@ function Events() {
   const [viewingEvent, setViewingEvent] = useState(null);
 
   useEffect(() => {
-    getApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/user`)
-      .then((res) => res.json())
-      .then((res) => {
-        setUserEvents(res.events);
-      });
-
-    getApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/all`)
-      .then((res) => res.json())
+    axios.get(`${process.env.REACT_APP_HOST_URL}/api/events/all`, getConfig(sessionStorage.getItem('token')))
       .then((res) => {
         //setAllEvents(res.events);
         setShowLoading(false);
-        setChosenEvents(res.events);
+        setChosenEvents(res.data.events);
+      })
+      .catch((err) => {
+        console.warn(err);
       });
   }, []);
 
@@ -112,7 +108,7 @@ function Events() {
           setIsActive(null);
         }}
       >
-        {chosenEvents.map((event) => (
+        {chosenEvents && chosenEvents.map((event) => (
           <Event
             key={chosenEvents.indexOf(event)}
             id={event._id}

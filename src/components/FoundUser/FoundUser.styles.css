@@ -1,0 +1,23 @@
+.found-user-container {
+    display: grid;
+    width: 260px;
+    position: relative;
+    margin: 5px;
+}
+
+.add-button {
+    position: absolute;
+    right: 0;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    width: 60px;
+    border-radius: 4px;
+    background: #90caf9;
+    transition: all .2s;
+}
+
+.add-button:hover {
+    background: #42a4f5;
+}
+

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Friends.styles.css';
-import { getApiCall } from '../../utils/functions';
+import axios from 'axios';
+import { getConfig } from '../../utils/functions';
 import Chat from '../Chat';
 
 function Friends() {
@@ -22,11 +23,13 @@ function Friends() {
     //     messagesBox.current.scrollTop = messagesBox.current.scrollHeight
     //   })
 
-    getApiCall(`${process.env.REACT_APP_HOST_URL}/api/friends`)
-      .then((res) => res.json())
+    axios.get(`${process.env.REACT_APP_HOST_URL}/api/friends`, getConfig(sessionStorage.getItem('token')))
       .then((res) => {
         setFriends(res.content);
         setFinishedLoading(true);
+      })
+      .catch((err) => {
+        console.log(err);
       });
 
     // }, [])

@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import { postApiCall } from '../../utils/functions';
+import Spinner from 'react-spinkit';
 
 function Host() {
   // useEffect(() => {
@@ -89,13 +89,15 @@ function Host() {
       },
     };
 
-    axios.post(`${process.env.REACT_APP_HOST_URL}/api/events/create`, hostInfo, config)
-      .then((res) => {
-        navigate('/dashboard/events');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setTimeout(() => {
+      axios.post(`${process.env.REACT_APP_HOST_URL}/api/events/create`, hostInfo, config)
+        .then((res) => {
+          navigate('/dashboard/events');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 5000);
   };
 
   const handleFile = (e) => {
@@ -166,12 +168,15 @@ function Host() {
           />
         </div>
 
-        <Button
-          type="submit"
-          variant="contained"
-        >
-          {!showLoading ? 'Host' : <CircularProgress size="20px" />}
-        </Button>
+        {!showLoading
+          ? (
+            <Button
+              type="submit"
+              variant="contained"
+            >
+              Host
+            </Button>
+          ) : <Spinner name="three-bounce" />}
       </div>
       <div className="img-input">
         <img className="host-img" alt="event logo" src={imgSrc} />

@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './ChosenEvent.styles.css';
 import { Buffer } from 'buffer';
-import { getApiCall } from '../../utils/functions';
+import axios from 'axios';
 import Attendee from '../../components/Attendee/Attendee';
+import { getConfig } from '../../utils/functions';
 
 function ChosenEvent() {
   const { id } = useParams();
@@ -18,10 +19,12 @@ function ChosenEvent() {
       return;
     }
 
-    getApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/info/${id}`)
-      .then((res) => res.json())
+    axios.get(`${process.env.REACT_APP_HOST_URL}/api/events/info/${id}`, getConfig(sessionStorage.getItem('token')))
       .then((res) => {
         setEvent(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 

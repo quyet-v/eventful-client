@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-
-import { getApiCall } from '../utils/functions';
+import axios from 'axios';
+import { getConfig } from '../utils/functions';
 
 function FriendRequestModal({ handleClose, open }) {
   const [friendRequests, setfriendRequests] = useState([]);
@@ -26,10 +26,12 @@ function FriendRequestModal({ handleClose, open }) {
   };
 
   useEffect(() => {
-    getApiCall(`${process.env.REACT_APP_HOST_URL}/api/friends/requests`)
-      .then((res) => res.json())
+    axios.get(`${process.env.REACT_APP_HOST_URL}/api/friends/requests`, getConfig(sessionStorage.getItem('token')))
       .then((res) => {
         setfriendRequests(res.friendRequests);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 

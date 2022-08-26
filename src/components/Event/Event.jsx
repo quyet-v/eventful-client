@@ -12,7 +12,7 @@ import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-import { postApiCall } from '../../utils/functions';
+import { getConfig } from '../../utils/functions';
 
 function Event({
   event,
@@ -51,26 +51,25 @@ function Event({
 
   const joinEvent = () => {
     setLoading(true);
-    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/join`, { id })
-      .then((res) => res.json())
-      .then((res) => {
-        setJoinedEvents(res.data.events);
-        setLoading(false);
-      }).catch((err) => {
-        throw err.message;
-      });
-  };
-
-  const leaveEvent = () => {
-    setLoading(true);
-    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/events/leave`, { id })
-      .then((res) => res.json())
+    axios.post(`${process.env.REACT_APP_HOST_URL}/api/events/join`, { id }, getConfig(sessionStorage.getItem('token')))
       .then((res) => {
         setJoinedEvents(res.data.events);
         setLoading(false);
       })
       .catch((err) => {
-        throw err.message;
+        console.log(err);
+      });
+  };
+
+  const leaveEvent = () => {
+    setLoading(true);
+    axios.delete(`${process.env.REACT_APP_HOST_URL}/api/events/leave`, { id }, getConfig(sessionStorage.getItem('token')))
+      .then((res) => {
+        setJoinedEvents(res.data.events);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

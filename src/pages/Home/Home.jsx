@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import NavBar from '../../components/NavBar/NavBar';
 import './Home.styles.css';
 import Login from '../auth/Login';
+import Signup from '../auth/Signup';
 import Presents from '../../assets/images/Presents.svg';
 import { isAuthenticated } from '../../utils/functions';
 
 function Home() {
   const [openLogin, setOpenLogin] = useState(false);
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [pword, setPword] = useState('');
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,28 +18,6 @@ function Home() {
         navigate('/dashboard/events');
       });
   }, []);
-
-  const data = {
-    email,
-    username,
-    password: pword,
-  };
-
-  const handleSignup = (e) => {
-    e.preventDefault();
-    axios.post(`${process.env.REACT_APP_HOST_URL}/api/auth/signup`, data)
-      .then((res) => {
-        // navigate('/dashboard/events');
-        sessionStorage.setItem('token', res.data.token);
-        navigate('/dashboard/events');
-      })
-      .catch((err) => {
-        setError(err);
-        setTimeout(() => {
-          setError(null);
-        }, 2000);
-      });
-  };
 
   return (
     <Wrapper>
@@ -58,7 +32,7 @@ function Home() {
             <PartyImg src={Presents} />
           </Hero>
 
-          <div className="signup">
+          {/* <div className="signup">
             {error && <h3 className="error-message">Error while signing up</h3>}
             <form
               className="signup-form"
@@ -93,7 +67,8 @@ function Home() {
               </button>
             </form>
 
-          </div>
+          </div> */}
+          <Signup />
         </div>
       </div>
 

@@ -1,0 +1,26 @@
+.friend-control-container {
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.requests {
+    cursor: pointer;
+}
+
+.request-container {
+    width: 200px;
+}
+
+.request-bell-container {
+    position: relative;
+}
+
+.request-amount {
+    text-align: center;
+    color: red;
+    position: absolute;
+    top: -10px;
+    font-weight: bold;
+    right: -5px;
+}

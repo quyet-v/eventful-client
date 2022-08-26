@@ -1,75 +1,75 @@
 /* eslint-disable consistent-return */
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import AuthForm from '../../components/AuthForm/AuthForm';
-import { postApiCall } from '../../utils/functions';
 
 function Signup() {
+  const [error, setError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [pword, setPword] = useState('');
   const navigate = useNavigate();
 
-  const handleSingup = async (email, username, password, e, loading, success) => {
-    if (email && username && password) {
-      loading(true);
-      e.preventDefault();
-      const userSignupInfo = {
-        email,
-        username,
-        password,
-      };
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      username,
+      password: pword,
+    };
 
-      postApiCall(`${process.env.REACT_APP_HOST_URL}/api/auth/signup`, userSignupInfo)
-        .then((res) => {
-          if (res.status === 200) {
-            return res.json();
-          }
-          success(false);
-          loading(false);
-        })
-        .then((res) => {
-          if (res) {
-            sessionStorage.setItem('token', res.token);
-            navigate('/dashboard');
-          }
-        });
-    }
+    axios.post(`${process.env.REACT_APP_HOST_URL}/api/auth/signup`, data)
+      .then((res) => {
+        // navigate('/dashboard/events');
+        sessionStorage.setItem('token', res.data.token);
+        navigate('/dashboard/events');
+      })
+      .catch((err) => {
+        setError(err);
+        setTimeout(() => {
+          setError(null);
+        }, 2000);
+      });
   };
 
   return (
-    <Wrapper>
-      <LoginContainer>
-        <AuthForm
-          heading="Signup"
-          buttonLabel="Signup"
-          redirect="login"
-          redirectMessage="Already have account?"
-          redirectLinkMessage="Login"
-          isSignup
-          apiType={handleSingup}
+    <div className="signup">
+      {error && <h3 className="error-message">Error while signing up</h3>}
+      <form
+        className="signup-form"
+        onSubmit={handleSignup}
+      >
+        <input
+          type="text"
+          placeholder="Email"
+          className="signup-input"
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
-      </LoginContainer>
-    </Wrapper>
+        <input
+          type="text"
+          placeholder="Username"
+          className="signup-input"
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPword(e.target.value)}
+          className="signup-input"
+          required
+        />
+        <button
+          type="submit"
+          className="signup-button"
+        >
+          Sign up
+        </button>
+      </form>
+
+    </div>
   );
 }
-
-const Wrapper = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color:#2a2d34;
-    display: flex;
-    justify-content:center;
-    align-items:center;
-
-`;
-
-const LoginContainer = styled.div`
-    width:400px;
-    height:400px;
-    background-color:white;
-    display:flex;
-    flex-direction:column;
-    padding-top:50px;
-    align-items:center;
-`;
 
 export default Signup;

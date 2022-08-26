@@ -1,11 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import { getApiCall, postApiCall } from '../utils/functions';
+import axios from 'axios';
+import { getConfig } from '../utils/functions';
 
 function AddFriend() {
   const [searchedUser, setSearchUser] = useState('');
@@ -20,17 +20,21 @@ function AddFriend() {
 
   const handleOnClick = () => {
     if (searchedUser !== '') {
-      getApiCall(`${process.env.REACT_APP_HOST_URL}/api/users/all`)
-        .then((res) => res.json())
+      axios.get(`${process.env.REACT_APP_HOST_URL}/api/users/all`, getConfig(sessionStorage.getItem('token')))
         .then((res) => {
           setUsers(res.allUsers);
+        })
+        .catch((err) => {
+          console.log(err);
         });
 
-      getApiCall(`${process.env.REACT_APP_HOST_URL}/api/users/info`)
-        .then((res) => res.json())
+      axios.get(`${process.env.REACT_APP_HOST_URL}/api/users/info`, getConfig(sessionStorage.getItem('token')))
         .then((res) => {
           setCurrentFriends(res.friends);
           setRequestsSent(res.sentRequests);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       setUsers(null);
@@ -43,11 +47,17 @@ function AddFriend() {
   // }, [searchedUser])
 
   const handleAddFriendClick = async (friendID) => {
-    postApiCall(`${process.env.REACT_APP_HOST_URL}/api/friends/requests/send/${friendID}`)
-      .then((res) => res.json())
+    axios.post(
+      `${process.env.REACT_APP_HOST_URL}/api/friends/requests/send/${friendID}`,
+      null,
+      getConfig(sessionStorage.getItem('token')),
+    )
       .then((res) => {
         setCurrentFriends(res.friends);
         setRequestsSent(res.sentRequests);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

@@ -4,33 +4,30 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from 'axios';
 import AuthForm from '../../components/AuthForm/AuthForm';
-import { postApiCall } from '../../utils/functions';
 
 function Login({ showLoading }) {
   const navigate = useNavigate();
 
-  const handleClick = async (username, password, e, loading, success) => {
+  const handleClick = async (username, password, e, loading) => {
     if (username && password) {
       loading(true);
       e.preventDefault();
 
-      postApiCall(`${process.env.REACT_APP_HOST_URL}/api/auth/login`, {
+      axios.post(`${process.env.REACT_APP_HOST_URL}/api/auth/login`, {
         username,
         password,
       })
         .then((res) => {
-          if (res.status === 200) {
-            return res.json();
-          }
-          success(false);
-          loading(false);
+          sessionStorage.setItem('token', res.data.token);
+          setTimeout(() => {
+            navigate('/dashboard/events');
+          }, 2000);
+          console.log(res);
         })
-        .then((res) => {
-          if (res) {
-            sessionStorage.setItem('token', res.token);
-            navigate('/dashboard');
-          }
+        .catch((err) => {
+          console.log(err);
         });
     }
   };

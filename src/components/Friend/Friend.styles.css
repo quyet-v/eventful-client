@@ -1,0 +1,11 @@
+.friend {
+    width: 200px;
+    position: relative;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.message-button {
+}
