@@ -8,7 +8,7 @@ import Request from '../components/Request/Request';
 import Friend from '../components/Friend/Friend';
 import './FriendControls.styles.css';
 
-function FriendControl({ user }) {
+function FriendControl({ user, setUser }) {
   return (
     <div className="friend-control-container">
       <Tooltip
@@ -19,7 +19,9 @@ function FriendControl({ user }) {
             && user.receivedRequests.map((request) => (
               <Request
                 key={request._id}
-                username={request.username}
+                user={user}
+                setUser={setUser}
+                request={request}
               />
             ))}
           </>
@@ -46,7 +48,7 @@ function FriendControl({ user }) {
             <h1>Friends</h1>
             <div className="friend-container">
               {user
-              && user.friends.map((friend) => <Friend key={friend} username={friend} />)}
+              && user.friends.map((friend) => <Friend key={friend._id} friend={friend} />)}
             </div>
           </>
         )}

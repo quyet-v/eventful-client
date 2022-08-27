@@ -2,10 +2,10 @@
 import React from 'react';
 import './Friend.styles.css';
 
-function Friend({ username }) {
+function Friend({ friend }) {
   return (
     <div className="friend">
-      <h3>{username}</h3>
+      <h3>{friend.username}</h3>
       <button
         type="button"
         className="message-button"

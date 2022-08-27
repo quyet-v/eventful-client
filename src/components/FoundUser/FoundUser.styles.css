@@ -1,6 +1,8 @@
 .found-user-container {
-    display: grid;
+    display: flex;
     width: 260px;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
     margin: 5px;
 }

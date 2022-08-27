@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import './Friends.styles.css';
 import axios from 'axios';
@@ -88,9 +89,10 @@ function Friends() {
         <h1>Current Friends</h1>
         <div className="friend-list">
           {finishedLoading && friends.map((friend) => (
-            <div className="friend" key={friend.id + 1}>
+            <div className="friend" key={friend._id}>
+              {console.log(friend)}
               {friend.username}
-              <button type="button" className="message-button" onClick={() => { handleMessageOpen(friend.id); }}>Message</button>
+              <button type="button" className="message-button" onClick={() => { handleMessageOpen(friend._id); }}>Message</button>
             </div>
           ))}
 

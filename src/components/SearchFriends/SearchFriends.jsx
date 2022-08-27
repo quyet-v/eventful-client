@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-empty */
 /* eslint-disable react/prop-types */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-underscore-dangle */
@@ -10,7 +12,7 @@ import FoundUser from '../FoundUser/FoundUser';
 import './SearchFriends.styles.css';
 import { getConfig } from '../../utils/functions';
 
-function SearchFriends({ user }) {
+function SearchFriends({ user, setUser }) {
   const [foundUsers, setFoundUsers] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -45,7 +47,12 @@ function SearchFriends({ user }) {
             title={(
               <div>
                 {foundUsers && foundUsers.map((foundUser) => (
-                  <FoundUser user={foundUser} key={foundUser._id} />
+                  <FoundUser
+                    foundUser={foundUser}
+                    user={user}
+                    setUser={setUser}
+                    key={foundUser._id}
+                  />
                 ))}
               </div>
             )}

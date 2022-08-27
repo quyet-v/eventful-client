@@ -15,7 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 import Navigation from '../Navigation/Navigation';
 import NavigationItem from '../NavigationItem/NavigationItem';
-import FriendControl from '../../FriendControls/FriendControls';
+import FriendControls from '../../FriendControls/FriendControls';
 import SearchFriends from '../SearchFriends/SearchFriends';
 import { getConfig } from '../../utils/functions';
 
@@ -51,7 +51,7 @@ function Dashboard() {
   return (
     <Wrapper onClick={() => setShowProfile(false)}>
       <DashboardContainer>
-        <SearchFriends user={user} />
+        <SearchFriends user={user} setUser={setUser} />
 
         <Navigation>
           <NavigationItem link="/dashboard/host" logo={<AddLocationAltTwoToneIcon />} info="Host" />
@@ -60,7 +60,7 @@ function Dashboard() {
 
         <div className="profile-container">
           <div className="button-container">
-            <FriendControl user={user} />
+            <FriendControls user={user} setUser={setUser} />
 
             <button
               type="button"
