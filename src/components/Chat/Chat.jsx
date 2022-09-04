@@ -5,31 +5,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { io } from 'socket.io-client';
+import CloseIcon from '@mui/icons-material/Close';
 
-function Chat({ closeChat, user }) {
-  const [chatUsername, setUsername] = useState('');
+function Chat({ setOpenChat, messagedUser }) {
   const [socket, setSocket] = useState();
   const [message, setMessage] = useState();
-  const [messageBack, setMessageBack] = useState();
+  const [receivedMessages, setReceivedMessages] = useState();
 
   const inputBar = useRef(null);
   const messagesBox = useRef(null);
   const sendButton = useRef(null);
 
   useEffect(() => {
-    const s = io.connect('https://eventfuloflies.herokuapp.com/', { reconnection: false });
-    setSocket(s);
+    const socket = io.connect(
+      'http://localhost:4000',
+      {
+        reconnection: false,
+      },
+    );
+    setSocket(socket);
 
-    socket.emit('join', { token: sessionStorage.getItem('token'), user });
+    socket.emit('join', { token: sessionStorage.getItem('token'), messagedUser });
 
     socket.on('returnmessages', (data) => {
-      setMessageBack(data.roomFound.messages);
-      setUsername(data.currentUsername.username);
+      setReceivedMessages(data.messages);
+      console.log(data.messages);
       messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
     });
 
     socket.on('giveback', (messages) => {
-      setMessageBack(messages.messages);
+      setReceivedMessages(messages.messages);
       messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
     });
 
@@ -68,23 +73,19 @@ function Chat({ closeChat, user }) {
   return (
     <ChatContainer>
       <InfoDiv>
-        {chatUsername != null && chatUsername}
+        {messagedUser && messagedUser.username}
 
-        <CloseChatButton onClick={() => { closeChat(); }}>X</CloseChatButton>
+        <CloseChatButton onClick={() => setOpenChat(false)}><CloseIcon /></CloseChatButton>
       </InfoDiv>
 
       <MessagesContainer ref={messagesBox}>
-        {messageBack != null && messageBack.map((message) => {
-          if (message) {
-            return (
-              <Message key={Math.random()}>
-                {' '}
-                {`${message.sender}: ${message.message}`}
-                {' '}
-              </Message>
-            );
-          }
-        })}
+        {receivedMessages != null && receivedMessages.map((message) => (
+          <Message key={Math.random()}>
+            {' '}
+            {`${message.user.username}: ${message.message}`}
+            {' '}
+          </Message>
+        ))}
 
       </MessagesContainer>
 
@@ -97,7 +98,6 @@ function Chat({ closeChat, user }) {
 }
 
 const Message = styled.h1`
- 
   margin-top:5px;
   font-size: medium;
   background-color:orange;
@@ -105,9 +105,6 @@ const Message = styled.h1`
   width:max-content;
   padding:5px;
   max-width:100%;
-  
-  
-
 `;
 
 const InfoDiv = styled.div`
@@ -117,14 +114,12 @@ const InfoDiv = styled.div`
   height:20px;
   border-bottom: 2px solid black;
   padding:3px;
-
   > * {
     margin-left:5px;
   }
 `;
 
 const ChatContainer = styled.div`
-  
   background-color: white;
   width: 30%;
   height: 300px;
@@ -134,26 +129,20 @@ const ChatContainer = styled.div`
   min-width:260px;
   border: 2px solid black;
   border-top-left-radius:4px;
-
   display:flex;
   flex-direction:column;
-  
-
-
 `;
 
 const CloseChatButton = styled.button`
   border: none;
-  width: 20px;
-  background-color: red;
   cursor:pointer;
-
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  margin-right: 5px;
   :hover {
-    background-color:darkred;
-
-
+    background-color: grey;
   }
-
 `;
 
 const ChatInput = styled.form`
@@ -167,7 +156,6 @@ const ChatInput = styled.form`
   justify-content:center;
   background-color:green;
   border-top: 2px solid black;
-  
 `;
 
 const ChatInputBar = styled.input`
@@ -179,10 +167,6 @@ const ChatInputBar = styled.input`
   border-right: 2px solid black;
   margin:0;
   outline:none;
-  
- 
-
-
 `;
 
 const SendButton = styled.button`
@@ -190,8 +174,6 @@ const SendButton = styled.button`
   border:none;
   height: 100%;
   margin:0;
-
-
 `;
 
 const MessagesContainer = styled.div`
@@ -200,18 +182,11 @@ const MessagesContainer = styled.div`
   scroll-behavior: smooth;
   padding:5px;
   overflow-wrap:break-word;
-  
- 
   ::-webkit-scrollbar {
     scrollbar-width:thin;
   } 
-
-
   -ms-overflow-style: -ms-autohiding-scrollbar; 
-  
    scrollbar-width: thin; 
-  
-  
 `;
 
 export default Chat;

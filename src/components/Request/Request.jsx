@@ -7,10 +7,8 @@ import axios from 'axios';
 import { getConfig } from '../../utils/functions';
 import './Request.styles.css';
 
-function Request({ user, setUser, request }) {
+function Request({ setUser, request }) {
   const handleAccept = () => {
-    console.log(request._id);
-    console.log(user._id);
     axios.post(
       `${process.env.REACT_APP_HOST_URL}/api/friends/requests/accept/${request._id}`,
       { id: request._id },
@@ -36,7 +34,7 @@ function Request({ user, setUser, request }) {
 
   return (
     <div className="request">
-      <h3>{user.username}</h3>
+      <h3>{request.username}</h3>
       <div className="request-control-container">
         <button
           type="button"

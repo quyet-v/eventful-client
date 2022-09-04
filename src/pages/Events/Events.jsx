@@ -142,6 +142,7 @@ function Events() {
       // </div>
 
         <EventInfo
+          data-testid="event-info"
           show={viewingEvent}
           setShow={setViewingEvent}
         />

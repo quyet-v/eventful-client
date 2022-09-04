@@ -51,7 +51,11 @@ function Event({
 
   const joinEvent = () => {
     setLoading(true);
-    axios.post(`${process.env.REACT_APP_HOST_URL}/api/events/join`, { id }, getConfig(sessionStorage.getItem('token')))
+    axios.post(
+      `${process.env.REACT_APP_HOST_URL}/api/events/join`,
+      { id },
+      getConfig(sessionStorage.getItem('token')),
+    )
       .then((res) => {
         setJoinedEvents(res.data.events);
         setLoading(false);
@@ -81,7 +85,7 @@ function Event({
       setJoinedEvents(res.data.events);
     })
       .catch((err) => {
-        throw err.message;
+        console.log(err);
       });
   };
 
@@ -105,28 +109,27 @@ function Event({
     <EventContainer image={img} onClick={(e) => e.stopPropagation()}>
       <div className="overlay">
         <InfoContainer>
-          <h3>{event.name}</h3>
-          <p>
+          <h3 data-testid="event-name">{event.name}</h3>
+          <p data-testid="event-host">
             Hosted by {event.host}
           </p>
         </InfoContainer>
 
         <ClickAwayListener onClickAway={() => setIsActive(null)}>
           <Tooltip
+            data-testid="event-options"
             placement="bottom-end"
-            PopperProps={{
-              disablePortal: true,
-            }}
             arrow
             disableFocusListener
             disableHoverListener
             disableTouchListener
             open={id === active}
             title={(
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div data-testid="options-container" style={{ display: 'flex', flexDirection: 'column' }}>
                 <button
                   type="button"
                   className="more-button"
+                  data-testid="view-button"
                   onClick={() => {
                     setViewingEvent(event);
                     setIsActive(null);
@@ -176,6 +179,7 @@ function Event({
             )}
           >
             <ExpandMoreIcon
+              data-testid="options-button"
               onClick={() => {
                 setIsActive(id);
               }}

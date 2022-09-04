@@ -23,7 +23,6 @@ function FoundUser({ foundUser, user, setUser }) {
     )
       .then((res) => {
         setUser(res.data.doc);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -34,7 +33,8 @@ function FoundUser({ foundUser, user, setUser }) {
     <div className="found-user-container">
       <h1>{foundUser.username}</h1>
       {user && !checkFriendStatus(user.friends, foundUser._id)
-      && !checkFriendStatus(user.sentRequests, foundUser._id) && (
+      && !checkFriendStatus(user.sentRequests, foundUser._id)
+      && !checkFriendStatus(user.receivedRequests, foundUser._id) && (
         <button
           type="button"
           className="add-button"
@@ -43,7 +43,7 @@ function FoundUser({ foundUser, user, setUser }) {
           Add
         </button>
       )}
-
+      {user && checkFriendStatus(user.receivedRequests, foundUser._id) && <h3>Respond</h3>}
       {user && checkFriendStatus(user.sentRequests, foundUser._id) && <h3>Request Sent</h3>}
       {user && checkFriendStatus(user.friends, foundUser._id) && <h3>Friends</h3>}
     </div>

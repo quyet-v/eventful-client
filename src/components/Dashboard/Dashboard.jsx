@@ -13,19 +13,25 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
+import Chat from '../Chat/Chat';
 import Navigation from '../Navigation/Navigation';
 import NavigationItem from '../NavigationItem/NavigationItem';
-import FriendControls from '../../FriendControls/FriendControls';
+import FriendControls from '../FriendControls/FriendControls';
 import SearchFriends from '../SearchFriends/SearchFriends';
 import { getConfig } from '../../utils/functions';
 
 function Dashboard() {
   const [user, setUser] = useState(null);
+  const [messagedUser, setMessagedUser] = useState(null);
+  const [openChat, setOpenChat] = useState(false);
   const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_HOST_URL}/api/users/info`, getConfig(sessionStorage.getItem('token')))
+    axios.get(
+      `${process.env.REACT_APP_HOST_URL}/api/users/info`,
+      getConfig(sessionStorage.getItem('token')),
+    )
       .then((res) => {
         setUser(res.data);
       })
@@ -50,6 +56,7 @@ function Dashboard() {
 
   return (
     <Wrapper onClick={() => setShowProfile(false)}>
+      {openChat && <Chat setOpenChat={setOpenChat} messagedUser={messagedUser} />}
       <DashboardContainer>
         <SearchFriends user={user} setUser={setUser} />
 
@@ -60,7 +67,12 @@ function Dashboard() {
 
         <div className="profile-container">
           <div className="button-container">
-            <FriendControls user={user} setUser={setUser} />
+            <FriendControls
+              user={user}
+              setUser={setUser}
+              setOpenChat={setOpenChat}
+              setMessagedUser={setMessagedUser}
+            />
 
             <button
               type="button"
