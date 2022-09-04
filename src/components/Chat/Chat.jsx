@@ -18,7 +18,7 @@ function Chat({ setOpenChat, messagedUser }) {
 
   useEffect(() => {
     const socket = io.connect(
-      'http://localhost:4000',
+      `${process.env.REACT_APP_HOST_URL}`,
       {
         reconnection: false,
       },
