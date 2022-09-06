@@ -138,7 +138,7 @@ function Event({
                   View
                 </button>
 
-                {joined && !isOwner
+                {joined && !isOwner(event)
                   && (
                   <button
                     type="button"
@@ -150,7 +150,7 @@ function Event({
                   </button>
                   )}
 
-                {!joined && !isOwner
+                {!joined && !isOwner(event)
                   && (
                   <button
                     type="button"
@@ -161,8 +161,7 @@ function Event({
                     {loading ? <CircularProgress size="1.5rem" className="loading" /> : 'Join' }
                   </button>
                   )}
-
-                {isOwner && (
+                {isOwner(event) && (
                 <button
                   type="button"
                   className="more-button"

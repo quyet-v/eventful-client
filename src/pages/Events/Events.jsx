@@ -26,15 +26,16 @@ function Events() {
   const [userEvents, setUserEvents] = useState([]);
   const [open, setOpen] = useState(false);
   const [eventDelete, setEventDelete] = useState(null);
-  //const [allEvents, setAllEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [viewingEvent, setViewingEvent] = useState(null);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_HOST_URL}/api/events/all`, getConfig(sessionStorage.getItem('token')))
       .then((res) => {
-        //setAllEvents(res.events);
+        setAllEvents(res.data.events);
+        console.log(res.data.events);
         setShowLoading(false);
-        setChosenEvents(res.data.events);
+        // setChosenEvents(res.data.events);
       })
       .catch((err) => {
         console.warn(err);
@@ -69,16 +70,12 @@ function Events() {
 
     axios.delete(`${process.env.REACT_APP_HOST_URL}/api/events/${eventDelete}`, config)
       .then((res) => {
-        setChosenEvents(res.data);
+        setAllEvents(res.data);
       });
   };
 
   const checkOwner = (event) => {
-    for (let i = 0; i < userEvents.length; i++) {
-      if (userEvents[i]._id === event) {
-        return true;
-      }
-    }
+    if (user.username === event.host) return true;
     return false;
   };
 
@@ -108,15 +105,15 @@ function Events() {
           setIsActive(null);
         }}
       >
-        {chosenEvents && chosenEvents.map((event) => (
+        {allEvents && allEvents.map((event) => (
           <Event
-            key={chosenEvents.indexOf(event)}
+            key={event._id}
             id={event._id}
             event={event}
             img={`data:image/png;base64,${Buffer.from(event.img.data).toString('base64')}`}
             setIsActive={setIsActive}
             active={isActive}
-            isOwner={checkOwner(event._id)}
+            isOwner={checkOwner}
             setOpen={handleDeletePress}
             setEventDelete={setEventDelete}
             user={user}
