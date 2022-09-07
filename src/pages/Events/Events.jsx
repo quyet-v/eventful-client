@@ -30,10 +30,12 @@ function Events() {
   const [viewingEvent, setViewingEvent] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_HOST_URL}/api/events/all`, getConfig(sessionStorage.getItem('token')))
+    axios.get(
+      `${process.env.REACT_APP_HOST_URL}/api/events/all`,
+      getConfig(sessionStorage.getItem('token')),
+    )
       .then((res) => {
         setAllEvents(res.data.events);
-        console.log(res.data.events);
         setShowLoading(false);
         // setChosenEvents(res.data.events);
       })
@@ -142,6 +144,8 @@ function Events() {
           data-testid="event-info"
           show={viewingEvent}
           setShow={setViewingEvent}
+          user={user}
+          setUser={setUser}
         />
       ) : null}
     </div>

@@ -1,25 +1,18 @@
 .found-user-container {
     display: flex;
-    width: 260px;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    margin: 5px;
+    margin: 10px;
 }
 
 .add-button {
-    position: absolute;
-    right: 0;
     border: none;
     padding: 5px;
     cursor: pointer;
-    width: 60px;
     border-radius: 4px;
     background: #90caf9;
     transition: all .2s;
+    margin-left: 10px
 }
 
 .add-button:hover {
     background: #42a4f5;
 }
-

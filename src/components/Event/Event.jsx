@@ -57,7 +57,7 @@ function Event({
       getConfig(sessionStorage.getItem('token')),
     )
       .then((res) => {
-        setJoinedEvents(res.data.events);
+        setJoinedEvents(res.data.data.events);
         setLoading(false);
       })
       .catch((err) => {
@@ -67,9 +67,13 @@ function Event({
 
   const leaveEvent = () => {
     setLoading(true);
-    axios.delete(`${process.env.REACT_APP_HOST_URL}/api/events/leave`, { id }, getConfig(sessionStorage.getItem('token')))
+    axios.post(
+      `${process.env.REACT_APP_HOST_URL}/api/events/leave`,
+      { id },
+      getConfig(sessionStorage.getItem('token')),
+    )
       .then((res) => {
-        setJoinedEvents(res.data.events);
+        setJoinedEvents(res.data.data.events);
         setLoading(false);
       })
       .catch((err) => {

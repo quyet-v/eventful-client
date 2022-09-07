@@ -48,6 +48,7 @@ function SearchFriends({ user, setUser }) {
               <div>
                 {foundUsers && foundUsers.map((foundUser) => (
                   <FoundUser
+                    sx={{ justifyContent: 'space-between' }}
                     foundUser={foundUser}
                     user={user}
                     setUser={setUser}

@@ -6,12 +6,22 @@ import axios from 'axios';
 import { getConfig } from '../../utils/functions';
 import './FoundUser.styles.css';
 
-function FoundUser({ foundUser, user, setUser }) {
+function FoundUser({
+  foundUser,
+  user,
+  setUser,
+  sx,
+}) {
   const checkFriendStatus = (array, id) => {
     for (let i = 0; i < array.length; i++) {
       if (array[i]?._id === id) return true;
     }
 
+    return false;
+  };
+
+  const isYourself = () => {
+    if (foundUser.username === user.username) return true;
     return false;
   };
 
@@ -30,9 +40,9 @@ function FoundUser({ foundUser, user, setUser }) {
   };
 
   return (
-    <div className="found-user-container">
-      <h1>{foundUser.username}</h1>
-      {user && !checkFriendStatus(user.friends, foundUser._id)
+    <div className="found-user-container" style={sx}>
+      <h3>{foundUser.username}</h3>
+      {user && !isYourself() && !checkFriendStatus(user.friends, foundUser._id)
       && !checkFriendStatus(user.sentRequests, foundUser._id)
       && !checkFriendStatus(user.receivedRequests, foundUser._id) && (
         <button
@@ -43,9 +53,18 @@ function FoundUser({ foundUser, user, setUser }) {
           Add
         </button>
       )}
-      {user && checkFriendStatus(user.receivedRequests, foundUser._id) && <h3>Respond</h3>}
-      {user && checkFriendStatus(user.sentRequests, foundUser._id) && <h3>Request Sent</h3>}
-      {user && checkFriendStatus(user.friends, foundUser._id) && <h3>Friends</h3>}
+      {user
+        && !isYourself()
+        && checkFriendStatus(user.receivedRequests, foundUser._id)
+        && <h3>Respond</h3>}
+      {user
+        && !isYourself()
+        && checkFriendStatus(user.sentRequests, foundUser._id)
+        && <h3>Request Sent</h3>}
+      {user
+        && !isYourself()
+        && checkFriendStatus(user.friends, foundUser._id)
+        && <h3>Friends</h3>}
     </div>
   );
 }
