@@ -154,6 +154,10 @@ function Event({
                     setViewingEvent(event);
                     setIsActive(null);
                   }}
+                  onTouchStart={() => {
+                    setViewingEvent(event);
+                    setIsActive(null);
+                  }}
                 >
                   View
                 </button>
