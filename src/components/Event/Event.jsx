@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-underscore-dangle */
@@ -85,9 +86,10 @@ function Event({
     axios.get(
       `${process.env.REACT_APP_HOST_URL}/api/users/info`,
       { headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` } },
-    ).then((res) => {
-      setJoinedEvents(res.data.events);
-    })
+    )
+      .then((res) => {
+        setJoinedEvents(res.data.events);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -102,12 +104,26 @@ function Event({
     setJoined(checkJoinStatus(joinedEvents));
   }, [joinedEvents]);
 
-  // const sendMail = () => {
+  // const sendMail = (date, time) => {
   //   axios.post(
   //     `${process.env.REACT_APP_HOST_URL}/api/email/send`,
   //     { data: { date, time } },
   //   );
   // };
+
+  const handleStart = () => {
+    axios.post(
+      `${process.env.REACT_APP_HOST_URL}/api/events/${id}/start`,
+      { id },
+      { headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` } },
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <EventContainer image={img} onClick={(e) => e.stopPropagation()}>
@@ -177,6 +193,15 @@ function Event({
                   Delete
                   <DeleteIcon />
                 </button>
+                )}
+                {isOwner(event) && !event.started && (
+                  <button
+                    type="button"
+                    className="more-button"
+                    onClick={handleStart}
+                  >
+                    Start
+                  </button>
                 )}
               </div>
             )}

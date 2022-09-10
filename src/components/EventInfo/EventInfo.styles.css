@@ -2,6 +2,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .flex-grow {
@@ -47,4 +48,22 @@
     grid-auto-rows: 50px;
     justify-items: center;
     background-color: rgb(217, 217, 217);
+}
+
+.myCanvas {
+    display: none;
+}
+
+.video-feedback > * {
+    margin: 10px;
+}
+
+.open-camera-button {
+    display: block;
+    margin: 0 auto;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold;
 }

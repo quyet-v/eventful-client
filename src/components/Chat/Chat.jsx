@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-shadow */
@@ -86,7 +87,6 @@ function Chat({ setOpenChat, messagedUser }) {
             {' '}
           </Message>
         ))}
-
       </MessagesContainer>
 
       <ChatInput>
