@@ -10,6 +10,16 @@ import axios from 'axios';
 import Spinner from 'react-spinkit';
 
 function Host() {
+  const fileReader = new FileReader();
+  const navigate = useNavigate();
+  const [showLoading, setShowLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [location, setLocation] = useState('');
+  const [imgSrc, setImgSrc] = useState();
+
   const locationInput = useRef();
 
   function handleLoadScript() {
@@ -19,7 +29,14 @@ function Host() {
     );
     autoComplete.addListener('place_changed', (e) => {
       const selectedPlace = autoComplete.getPlace();
-      console.log(selectedPlace.geometry.location.lat());
+
+      const chosenLocation = {
+        name: selectedPlace.formatted_address,
+        lat: selectedPlace.geometry.location.lat(),
+        lng: selectedPlace.geometry.location.lng(),
+      };
+
+      setLocation(chosenLocation);
     });
   }
 
@@ -42,16 +59,6 @@ function Host() {
     script.src = url;
     document.body.appendChild(script);
   };
-
-  const fileReader = new FileReader();
-  const navigate = useNavigate();
-  const [showLoading, setShowLoading] = useState(false);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [location, setLocation] = useState('');
-  const [imgSrc, setImgSrc] = useState();
 
   fileReader.addEventListener('load', () => {
     setImgSrc(fileReader.result);

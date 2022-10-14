@@ -30,6 +30,7 @@ const EventInfo = ({
   const [track, setTrack] = useState(null);
   const [pictureTaken, setPictureTaken] = useState(false);
   const [pictures, setPictures] = useState();
+  const [currentLocation, setCurrentLocation] = useState(null);
   const video = useRef(null);
   const canvas = useRef(null);
 
@@ -39,6 +40,14 @@ const EventInfo = ({
       return `${(parsedTime - 12).toString() + time.substr(2)} pm`;
     }
     return `${time} am`;
+  };
+
+  const success = (res) => {
+    setCurrentLocation(res.coords);
+    console.log(res.coords);
+  };
+  const error = (err) => {
+    alert('Please allow location to get directions!');
   };
 
   useEffect(() => {
@@ -53,6 +62,9 @@ const EventInfo = ({
       .catch((err) => {
         console.log(err);
       });
+
+    // eslint-disable-next-line max-len
+    navigator.geolocation.watchPosition(success, error, { enableHighAccuracy: true, maximumAge: 2000, timeout: 5000 });
   }, []);
 
   const handleTakePicture = () => {
@@ -178,7 +190,7 @@ const EventInfo = ({
             <div>
               <h3>Location</h3>
               <p>
-                {show.location}
+                {show.location.name}
               </p>
             </div>
             <p>
@@ -198,6 +210,17 @@ const EventInfo = ({
             })}
           </div>
         </div>
+        {currentLocation != null && (
+          <iframe
+            width="300"
+            height="300"
+            title="maps"
+            src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.REACT_APP_GOOGLE_API_KEY}
+              &origin=${currentLocation.lat},${currentLocation.lng}
+              &destination=${show.location.lat},${show.location.lng}`}
+          />
+        )}
+
         <div className="event-images">
           {pictures && pictures.map((picture) => {
             return (
