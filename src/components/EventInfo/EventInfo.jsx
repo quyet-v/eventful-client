@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
@@ -13,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Buffer } from 'buffer';
 import axios from 'axios';
+import EventImage from '../EventImage/EventImage';
 import FoundUser from '../FoundUser/FoundUser';
 import { getConfig } from '../../utils/functions';
 
@@ -27,6 +29,7 @@ const EventInfo = ({
   const [open, setOpen] = useState(false);
   const [track, setTrack] = useState(null);
   const [pictureTaken, setPictureTaken] = useState(false);
+  const [pictures, setPictures] = useState();
   const video = useRef(null);
   const canvas = useRef(null);
 
@@ -45,6 +48,7 @@ const EventInfo = ({
     )
       .then((res) => {
         setAttendees(res.data.users);
+        setPictures(res.data.pictures);
       })
       .catch((err) => {
         console.log(err);
@@ -72,6 +76,30 @@ const EventInfo = ({
         console.log(err);
       });
   };
+
+  const disableCamera = () => {
+    track.getTracks().forEach((t) => {
+      t.stop();
+    });
+  };
+
+  const handleSavePicture = () => {
+    axios.post(
+      `${process.env.REACT_APP_HOST_URL}/api/events/image/add`,
+      { id: show._id, img: data },
+      getConfig(sessionStorage.getItem('token')),
+    )
+      .then((res) => {
+        setOpen(false);
+        setPictures(res.data.pictures);
+        disableCamera();
+        setPictureTaken(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -116,16 +144,21 @@ const EventInfo = ({
                 border: '4px solid black',
               }}
             />
-            <button
-              type="button"
-              className="open-camera-button"
+            {show.started && (
+            <Button
+              sx={{
+                display: 'block',
+                width: '100%',
+              }}
               onClick={() => {
                 setOpen(true);
                 handleCamera();
               }}
+              variant="contained"
             >
               Open Camera
-            </button>
+            </Button>
+            )}
           </div>
           <div className="event-info-details">
             <h1>{show.name}</h1>
@@ -165,10 +198,22 @@ const EventInfo = ({
             })}
           </div>
         </div>
+        <div className="event-images">
+          {pictures && pictures.map((picture) => {
+            return (
+              <EventImage
+                className="ev-image"
+                key={Math.random()}
+                imgSrc={`data:image/png;base64,${Buffer.from(picture.buffer.data).toString('base64')}`}
+              />
+            );
+          })}
+        </div>
         <Modal
           open={open}
           onClose={() => {
             setOpen(false);
+            disableCamera();
           }}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
@@ -186,28 +231,27 @@ const EventInfo = ({
               {pictureTaken && <img src={data} alt="selfie" />}
             </div>
             <div>
-              {!pictureTaken && <button type="button" onClick={handleTakePicture}>Take Picture</button>}
+              {!pictureTaken && <Button variant="contained" type="button" onClick={handleTakePicture}>Take Picture</Button>}
               {pictureTaken && (
-              <button
+              <Button
                 type="button"
+                variant="contained"
                 onClick={() => {
                   setPictureTaken(false);
                   handleCamera();
                 }}
               >
                 Retake
-              </button>
+              </Button>
               )}
               {pictureTaken && (
-                <button
+                <Button
+                  variant="contained"
                   type="button"
-                  onClick={() => {
-                    setPictureTaken(false);
-                    handleCamera();
-                  }}
+                  onClick={handleSavePicture}
                 >
                   Done
-                </button>
+                </Button>
               )}
             </div>
           </Box>

@@ -1,0 +1,27 @@
+.event-image-container {
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+}
+
+.favourite-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 5px;
+    cursor: pointer;
+    display: flex;
+    transition: all .2s;
+}
+
+
+.favourite:hover {
+    color: red;
+}
+
+.actual-image {
+    width: 100%;
+    height: 100%;
+}

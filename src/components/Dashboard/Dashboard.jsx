@@ -24,6 +24,7 @@ function Dashboard() {
   const [user, setUser] = useState(null);
   const [messagedUser, setMessagedUser] = useState(null);
   const [openChat, setOpenChat] = useState(false);
+  const [windowWidth, setWindowWidth] = useState();
   const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState(false);
 
@@ -38,7 +39,16 @@ function Dashboard() {
       .catch((err) => {
         console.log(err);
       });
+
+    window.addEventListener('resize', () => {
+      setWindowWidth(window.innerWidth);
+    });
   }, []);
+
+  const isMobile = () => {
+    if (windowWidth <= 450) return true;
+    return false;
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem('token');
@@ -88,6 +98,7 @@ function Dashboard() {
             onClick={handleProfileOptionsClick}
           >
             {user && <h3>{user.username}</h3>}
+            {isMobile() && <h3>Mobile</h3>}
             <button type="button" className="profile-option">
               <AccountCircleIcon />
               Profile

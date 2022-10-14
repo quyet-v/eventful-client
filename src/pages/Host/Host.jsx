@@ -1,6 +1,6 @@
 /* eslint-disable quote-props */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Host.styles.css';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -10,28 +10,38 @@ import axios from 'axios';
 import Spinner from 'react-spinkit';
 
 function Host() {
-  // useEffect(() => {
-  //     loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCg1mB3Pz7A1lLtnywFZkq6CLrzeEcoCqc&libraries=places",handleLoadScript);
+  const locationInput = useRef();
 
-  // }, [])
+  function handleLoadScript() {
+    const autoComplete = new window.google.maps.places.Autocomplete(
+      locationInput.current,
+      { componentRestrictions: { country: 'nz' } },
+    );
+    autoComplete.addListener('place_changed', (e) => {
+      const selectedPlace = autoComplete.getPlace();
+      console.log(selectedPlace.geometry.location.lat());
+    });
+  }
 
-  // const loadScript = (url,callback) => {
-  //     let script = document.createElement("script");
-  //     script.type = "text/javascript";
+  useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
+    loadScript(
+      `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&libraries=places`,
+      handleLoadScript,
+    );
+  }, []);
 
-  //     script.onload = () => {
-  //         callback()
-  //     }
+  const loadScript = (url, callback) => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
 
-  //     script.src = url;
-  //     document.body.appendChild(script);
-  // }
+    script.onload = () => {
+      callback();
+    };
 
-  // function handleLoadScript() {
-  //     console.log("hi")
-  //         types: ["(cities)"], componentRestrictions: { country: "us" }
-  //    })
-  // }
+    script.src = url;
+    document.body.appendChild(script);
+  };
 
   const fileReader = new FileReader();
   const navigate = useNavigate();
@@ -158,14 +168,15 @@ function Host() {
         </div>
 
         <div className="input-block">
-          <TextField
+          {/* <TextField
             id="event-location"
             type="text"
             label="Event Location"
             variant="filled"
             required
             onChange={handleInputs}
-          />
+          /> */}
+          <input type="text" required ref={locationInput} />
         </div>
 
         {!showLoading

@@ -25,51 +25,13 @@ function Home() {
 
       <NavBar showLoading={setOpenLogin} />
       <div className="hero-container">
-        <div className="hero">
-          <Hero>
-            <Title>Bring your events to life</Title>
-            <Title>with Eclipse</Title>
-            <PartyImg src={Presents} />
-          </Hero>
+        <Hero>
+          <Title>Bring your events to life</Title>
+          <Title>with Eclipse</Title>
+          <PartyImg src={Presents} />
+        </Hero>
 
-          {/* <div className="signup">
-            {error && <h3 className="error-message">Error while signing up</h3>}
-            <form
-              className="signup-form"
-              onSubmit={handleSignup}
-            >
-              <input
-                type="text"
-                placeholder="Email"
-                className="signup-input"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Username"
-                className="signup-input"
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPword(e.target.value)}
-                className="signup-input"
-                required
-              />
-              <button
-                type="submit"
-                className="signup-button"
-              >
-                Sign up
-              </button>
-            </form>
-
-          </div> */}
-          <Signup />
-        </div>
+        <Signup className="john" />
       </div>
 
     </Wrapper>
@@ -80,8 +42,9 @@ const Hero = styled.div`
   display: flex;
   flex-direction:column;
   border-radius:10px;
-  padding:10px;
-  
+  text-align: center;  
+  margin-right: 20px;
+  margin-bottom: 20px;
 `;
 const Title = styled.h1`
   font-family: 'Kumar One', cursive;
@@ -92,14 +55,16 @@ const Title = styled.h1`
 const PartyImg = styled.img`
   filter:drop-shadow(13px 13px 10px rgba(0,0,0,0.2));
   display:block;
+  width: 100%;
+  height: 100%
 `;
 
 const Wrapper = styled.div`
-  
   display:flex;
   flex-direction:column;
   width:100%;
-  height:100%;
+  overflow-x: hidden;
+  height: 100vh;
   
 `;
 
